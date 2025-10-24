@@ -1,0 +1,748 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Baloo+Bhai+2:wght@400..800&family=Bitcount+Prop+Single+Ink:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+    --Primary-Gradient: linear-gradient(to right in oklab, #9810fa, #e60076);
+    --Filters-background: #f3f3f5;
+    --Filters-border-radius: 12px;
+    --FiltersItem-border: none;
+    --FilterItem-height: 36px;
+    --FilterItem-width: 100%;
+    --filterItem-padding: 10px;
+    --Filters-SVG-stroke: #99a1af;
+    --Filters-SVG-height-width: 16px;
+
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Inter", "Poppins", sans-serif;
+}
+
+body {
+    margin: 0 auto;
+}
+
+main {
+    display: inline-block;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to bottom right, #faf5ff, #fdf2f8, #eff6ff);
+}
+
+.contentBox {
+    width: 1152px;
+    min-height: 100vh;
+    padding: 32px 15px;
+}
+
+.page-container nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.contentBox nav .navLeft h3 {
+    font-size: 16px;
+    margin-bottom: 0.25rem;
+    font-weight: 400;
+    background-clip: text;
+    color: transparent;
+    background-image: var(--Primary-Gradient);
+    height: 24px;
+}
+
+.contentBox nav .navLeft p {
+    color: #4a5565;
+    font-size: 15px;
+}
+
+.contentBox nav .navRight {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+nav .navRight .themeChanger {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(237, 237, 237);
+    height: 36px;
+    width: 36px;
+    position: relative;
+    border: none;
+    border-radius: 10px;
+    transition: all 0.2s ease-in-out;
+}
+
+nav .navRight .themeChanger:hover {
+    background-color: #dfdfdf;
+}
+
+nav .navRight .themeChanger svg {
+    height: 20px;
+    width: 20px;
+}
+
+nav .navRight .themeChanger svg:last-child {
+    visibility: hidden;
+    position: absolute;
+}
+
+nav .navRight .addTask {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 36px;
+    padding: 8px;
+    background-image: var(--Primary-Gradient);
+    opacity: 0.85;
+    border: none;
+    border-radius: 10px;
+    /* transition: all 0.2s ease-in-out; */
+    color: whitesmoke;
+    font-weight: 400;
+}
+
+nav .navRight .addTask:hover {
+    opacity: 0.95;
+}
+
+nav .navRight .addTask svg {
+    height: 19px;
+    width: 19px;
+    stroke: whitesmoke;
+}
+
+.contentBox .functionBoxes {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+
+}
+
+.contentBox .functionBoxes .functionBox {
+    background-color: #fff;
+    padding: 24px;
+    border-radius: 15px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 6px -1px #0000001a, 0 2px 4px -2px #0000001a;
+}
+
+.contentBox .functionBoxes .functionBox svg {
+    stroke: whitesmoke;
+    height: 44px;
+    width: 44px;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    opacity: 0.95;
+}
+
+.contentBox .functionBoxes .functionBox:hover {
+    box-shadow: 0px 17px 40px 0px #0000001a;
+}
+
+.contentBox .functionBoxes .functionBox1 svg {
+    background-image: var(--Primary-Gradient);
+}
+
+.contentBox .functionBoxes .functionBox2 svg {
+    background-image: linear-gradient(to bottom right in oklab, #2b7fff, #00b8db);
+}
+
+.contentBox .functionBoxes .functionBox3 svg {
+    background-image: linear-gradient(to bottom right in oklab, #00c951, #00bc7d);
+}
+
+.contentBox .functionBoxes .functionBox4 svg {
+    background-image: linear-gradient(to bottom right in oklab, #ff6900, #fb2c36);
+}
+
+.contentBox .functionBoxes .functionBox h3 {
+    color: #4a5565;
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 2px;
+}
+
+.contentBox .functionBoxes .functionBox p {
+    height: 24px;
+    font-size: 14px;
+    color: #101828;
+}
+
+/* Styling Filters Section */
+.filters {
+    height: 68px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px;
+    margin-bottom: 24px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px -1px #0000001a, 0 2px 4px -2px #0000001a;
+    border-radius: var(--Filters-border-radius);
+}
+
+.filters .search {
+    position: relative;
+    width: 55%;
+}
+
+.filters .search svg {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    stroke: var(--Filters-SVG-stroke);
+    height: var(--Filters-SVG-height-width);
+    width: var(--Filters-SVG-height-width);
+}
+
+.filters .search input {
+    width: 100%;
+    height: 36px;
+    padding: 5px 8px 5px 35px;
+    border: var(--Filters-border);
+    border-radius: 10px;
+    font-size: 14px;
+    background-color: var(--Filters-background);
+    display: flex;
+    align-items: center;
+}
+
+.filters .search input:focus {
+    outline: 1px solid rgb(208, 208, 208);
+}
+
+.filters .sortButtons {
+    width: 45%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    align-items: center;
+}
+
+.filters .sortButtons .sortItems {
+    background-color: var(--Filters-background);
+    border-radius: var(--Filters-border-radius);
+    border: var(--Filters-border);
+    padding: var(--filterItem-padding);
+    height: var(--FilterItem-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.filters .sortButtons .sortItems svg {
+    stroke: var(--Filters-SVG-stroke);
+    height: var(--Filters-SVG-height-width);
+    width: var(--Filters-SVG-height-width);
+}
+
+.filters .clear {
+    height: 36px;
+    width: 36px;
+    border: 1px solid #d7d7d7;
+    border-radius: 8px;
+    background-color: transparent;
+    transform: translateX(5px);
+    transition: all 0.2s ease-in-out;
+}
+
+.filters .clear:hover {
+    background-color: #ededed;
+}
+
+.filters .clear svg {
+    height: var(--Filters-SVG-height-width);
+    width: var(--Filters-SVG-height-width);
+    stroke: rgb(43, 43, 43);
+}
+
+.resultContainer {
+    position: relative;
+}
+
+.resultContainer .emptyTask {
+    padding: calc(.25rem * 16) 0;
+    visibility: hidden;
+    position: absolute;
+    top: auto;
+    left: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.resultContainer .emptyTask svg {
+    height: 96px;
+    width: 96px;
+    stroke: #ad46ff;
+    border-radius: 50%;
+    margin-bottom: 16px;
+    padding: 24px;
+    background-image: linear-gradient(to bottom right in oklab, #f3e8ff, #fce7f3);
+}
+
+.resultContainer .emptyTask h3 {
+    font-weight: 400;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.resultContainer .emptyTask p {
+    font-size: 16px;
+    color: rgb(100, 100, 100);
+}
+
+.resultItemBox {
+    background-color: #fff;
+    padding: calc(0.25rem*4);
+    border-radius: 15px;
+    border-left: 5px solid red;
+    width: 100%;
+    min-height: 110px;
+    display: flex;
+    gap: 15px;
+
+}
+
+.resultItemBox .checkBox {
+    width: 20px;
+    height: 20px;
+}
+
+.resultItemBox .checkBox button {
+    border-radius: 3px;
+    border: 1.5px solid #99a1af;
+    height: 18px;
+    width: 18px;
+    background-color: #f3f3f5;
+
+}
+
+.resultItemBox .resultContent {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.resultItemBox .resultContent .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    height: 32px;
+    margin-bottom: 8px;
+}
+
+.resultItemBox .resultContent .header .taskName {
+    height: 16px;
+    font-size: 16px;
+    color: #101828;
+}
+
+.resultItemBox .resultContent .header .editOptions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.resultItemBox .resultContent .header .editOptions button {
+    height: 32px;
+    width: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease-in-out;
+    background-color: #fff;
+    border: none;
+    border-radius: 8px;
+}
+
+.resultItemBox .resultContent .header .editOptions button:first-child:hover {
+    background-color: rgb(239, 239, 239);
+}
+
+.resultItemBox .resultContent .header .editOptions button:last-child:hover {
+    background-color: #e7000c09;
+}
+
+.resultItemBox .resultContent .header .editOptions button svg {
+    height: 16px;
+    width: 16px;
+}
+
+.resultItemBox .resultContent .header .editOptions button:last-child svg {
+    stroke: #fb2c36;
+}
+
+.resultContainer .description {
+    height: 20px;
+    font-size: 14px;
+    width: 100%;
+    margin-bottom: 12px;
+    color: #4a5565;
+}
+
+.resultContainer .taskTags ul {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 12px;
+}
+
+.resultContainer .taskTags ul li {
+    font-size: 12px;
+    padding: 0 5px;
+    border-radius: 6px;
+    font-weight: 480;
+}
+
+.resultContainer .taskTags ul.medium li:nth-child(1) {
+    color: #a65f00;
+    background-color: #fef9c2;
+}
+
+.resultContainer .taskTags ul.low li:nth-child(1) {
+    color: #008236;
+    background-color: #dcfce7;
+}
+
+.resultContainer .taskTags ul.hard li:nth-child(1) {
+    color: #c10007;
+    background-color: #ffe2e2;
+}
+
+.resultContainer .taskTags ul.personal li:nth-child(2) {
+    color: #8200db;
+    background-color: #f3e8ff;
+}
+
+.resultContainer .taskTags ul.work li:nth-child(2) {
+    color: #1447e6;
+    background-color: #dbeafe;
+}
+
+.resultContainer .taskTags ul.shopping li:nth-child(2) {
+    color: #c6005c;
+    background-color: #fce7f3;
+}
+
+.resultContainer .taskTags ul.health li:nth-child(2) {
+    color: #007a55;
+    background-color: #d0fae5;
+}
+
+.resultContainer .taskTags ul li:last-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    background-color: #fff;
+    border: 1px solid rgb(219, 218, 218);
+}
+
+.resultContainer .taskTags ul li:last-child svg {
+    height: 12.5px;
+    width: 12.5px;
+}
+
+.addNewTask {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    padding: calc(0.25rem * 6);
+    border-radius: 0.625rem;
+    background-color: white;
+    font-family: "Poppins", "Inter", sans-serif;
+    border: 1.5px solid rgb(232, 232, 232);
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.1s ease-in-out;
+}
+
+
+.addNewTask .heading {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: left;
+}
+
+.addNewTask .heading h2 {
+    font-size: 18px;
+    height: 18px;
+    width: 100%;
+    font-weight: 500;
+    color: #101828;
+}
+
+.addNewTask .heading p {
+    font-size: 14px;
+    height: 20px;
+    color: #4a5565;
+    margin-bottom: 12px;
+}
+
+.addNewTask .taskTitle {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: cemter;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.addNewTask .taskTitle label {
+    font-size: 14px;
+    height: 14px;
+}
+
+.addNewTask .taskTitle input {
+    width: 100%;
+    height: 36px;
+    padding: 4px 12px;
+    border: var(--Filters-border);
+    border-radius: 8px;
+    font-size: 14px;
+    margin-top: 10px;
+    background-color: var(--Filters-background);
+    display: flex;
+    align-items: center;
+}
+
+.addNewTask .taskTitle input:focus {
+    outline: 2px solid rgb(208, 208, 208);
+}
+
+.addNewTask .taskDescription {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: cemter;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+
+.addNewTask .taskDescription label {
+    font-size: 14px;
+    height: 14px;
+}
+
+.addNewTask .taskDescription textarea {
+    width: 100%;
+    height: 64px;
+    padding: 4px 12px;
+    border: var(--Filters-border);
+    border-radius: 8px;
+    resize: none;
+    font-size: 14px;
+    margin-top: 10px;
+    background-color: var(--Filters-background);
+    display: flex;
+    align-items: center;
+}
+
+.addNewTask .taskDescription textarea:focus {
+    outline: 2px solid rgb(208, 208, 208);
+}
+
+.addNewTask .inputElements {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    margin-bottom: 18px;
+}
+
+.addNewTask .inputElements .priorityInput {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 50%;
+}
+
+.addNewTask .inputElements .priorityInput p {
+    font-size: 14px;
+    height: 14px;
+}
+
+.addNewTask .inputElements .priorityInput select {
+    margin-top: 10px;
+    border: none;
+    background-color: var(--Filters-background);
+    padding: 8px;
+    width: 100%;
+    border-radius: 8px;
+}
+
+/* .inputElements .priorityInput .select::after {
+    content: "";
+    position: absolute;
+    top: 14px;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-color: #333 transparent transparent transparent;
+  } */
+
+.addNewTask .inputElements .categoryInput {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 50%;
+}
+
+.addNewTask .inputElements .categoryInput p {
+    font-size: 14px;
+    height: 14px;
+}
+
+.addNewTask .inputElements .categoryInput select {
+    margin-top: 10px;
+    border: none;
+    background-color: var(--Filters-background);
+    padding: 8px;
+    width: 100%;
+    border-radius: 8px;
+}
+
+.addNewTask .dueDate {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: cemter;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.addNewTask .dueDate label {
+    font-size: 14px;
+    height: 14px;
+    width: 100%;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.addNewTask .dueDate label svg{
+    height: 14px;
+    width: auto;
+}
+
+.addNewTask .dueDate input {
+    height: 36px;
+    padding: 4px 12px;
+    border: var(--Filters-border);
+    border-radius: 8px;
+    font-size: 14px;
+    margin-top: 12px;
+    padding-right: 70%;
+    background-color: var(--Filters-background);
+}
+
+.addNewTask .dueDate input:focus {
+    outline: 2px solid rgb(208, 208, 208);
+}
+
+.addNewTask .actionBtn{
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    justify-content: right;
+}
+
+.addNewTask .actionBtn button:last-child {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 36px;
+    padding: 8px;
+    background-image: var(--Primary-Gradient);
+    opacity: 0.85;
+    border: none;
+    border-radius: 10px;
+    color: whitesmoke;
+    font-weight: 550;
+}
+
+.addNewTask .actionBtn button:last-child:hover {
+    opacity: 0.95;
+}
+
+.addNewTask .actionBtn button:first-child{
+    padding: 8px;
+    height: 36px;
+    background-color: #fff;
+    border: none;
+    border-radius: 10px;
+    border: 1px solid rgb(219, 218, 218);
+    transition: all 0.2s;
+}
+
+.addNewTask .actionBtn button:first-child:hover{
+    background-color: rgb(231, 231, 231);
+}
+
+.addNewTask .minimizer{
+    position: absolute;
+    top: 35px;
+    right: 20px;
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease-in-out;
+}
+
+.addNewTask .minimizer:hover{
+    background-color: rgb(230, 230, 230);
+}
+
+.addNewTask .minimizer svg{
+    height: 16px;
+}
