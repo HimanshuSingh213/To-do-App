@@ -28,7 +28,7 @@ main {
     display: inline-block;
     justify-content: center;
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
 }
 
 .page-container {
@@ -36,7 +36,7 @@ main {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
     background-image: linear-gradient(to bottom right, #faf5ff, #fdf2f8, #eff6ff);
 }
 
@@ -281,6 +281,9 @@ nav .navRight .addTask svg {
 
 .resultContainer {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
 .resultContainer .emptyTask {
@@ -316,6 +319,7 @@ nav .navRight .addTask svg {
     color: rgb(100, 100, 100);
 }
 
+
 .resultItemBox {
     background-color: #fff;
     padding: calc(0.25rem*4);
@@ -325,12 +329,38 @@ nav .navRight .addTask svg {
     min-height: 110px;
     display: flex;
     gap: 15px;
+    opacity: 0;
+    transition: all 0.4s ease;
+    transform: translateY(20px);
+}
 
+.resultItemBox.show{
+    opacity: 1;
+    transform: translateY(0px);
+}
+
+.checkBox.done button{
+    background-color: rgb(57, 57, 57) !important;
+    border-radius: 3px !important;
+    border: 1.5px solid #9878eb !important;
+    height: 18px !important;
+    width: 18px !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.checkBox.done button img{
+    display: flex !important;
+    height: 16px !important;
+    width: 16px !important;
 }
 
 .resultItemBox .checkBox {
     width: 20px;
     height: 20px;
+    cursor: pointer;
 }
 
 .resultItemBox .checkBox button {
@@ -339,7 +369,12 @@ nav .navRight .addTask svg {
     height: 18px;
     width: 18px;
     background-color: #f3f3f5;
+    cursor: pointer;
 
+}
+
+.resultItemBox .checkBox button img{
+    display: none;
 }
 
 .resultItemBox .resultContent {
@@ -425,37 +460,37 @@ nav .navRight .addTask svg {
     font-weight: 480;
 }
 
-.resultContainer .taskTags ul.medium li:nth-child(1) {
+.resultContainer .taskTags.medium ul li:nth-child(1) {
     color: #a65f00;
     background-color: #fef9c2;
 }
 
-.resultContainer .taskTags ul.low li:nth-child(1) {
+.resultContainer .taskTags.low ul li:nth-child(1) {
     color: #008236;
     background-color: #dcfce7;
 }
 
-.resultContainer .taskTags ul.hard li:nth-child(1) {
+.resultContainer .taskTags.high ul li:nth-child(1) {
     color: #c10007;
     background-color: #ffe2e2;
 }
 
-.resultContainer .taskTags ul.personal li:nth-child(2) {
+.resultContainer .taskTags.personal ul li:nth-child(2) {
     color: #8200db;
     background-color: #f3e8ff;
 }
 
-.resultContainer .taskTags ul.work li:nth-child(2) {
+.resultContainer .taskTags.work ul li:nth-child(2) {
     color: #1447e6;
     background-color: #dbeafe;
 }
 
-.resultContainer .taskTags ul.shopping li:nth-child(2) {
+.resultContainer .taskTags.shopping ul li:nth-child(2) {
     color: #c6005c;
     background-color: #fce7f3;
 }
 
-.resultContainer .taskTags ul.health li:nth-child(2) {
+.resultContainer .taskTags.health ul li:nth-child(2) {
     color: #007a55;
     background-color: #d0fae5;
 }
@@ -472,6 +507,27 @@ nav .navRight .addTask svg {
 .resultContainer .taskTags ul li:last-child svg {
     height: 12.5px;
     width: 12.5px;
+}
+
+.resultContainer .taskTags ul li:last-child svg:first-child{
+    visibility: hidden;
+}
+
+.resultContainer .taskTags ul li:last-child svg:last-child{
+    visibility: visible !important;
+}
+
+.resultContainer .taskTags.overdue ul li:last-child svg:first-child{
+    visibility: visible !important;
+}
+
+.resultContainer .taskTags.overdue ul li:last-child svg {
+    stroke: #e7000b !important;
+}
+
+.resultContainer .taskTags.overdue ul li:last-child{
+    border-color: #e7000b !important;
+    color: #e7000b !important;
 }
 
 .addNewTask {
@@ -746,3 +802,309 @@ nav .navRight .addTask svg {
 .addNewTask .minimizer svg{
     height: 16px;
 }
+
+.addNewTask .taskTitle input.error {
+    border: 2px solid #e7000b !important;
+    background-color: rgba(231, 0, 11, 0.05);
+}
+
+@keyframes shake {
+    0%, 100% { 
+        transform: translateX(0); 
+    }
+
+    25% { 
+        transform: translateX(-10px); 
+    }
+
+    75% { 
+        transform: translateX(10px); 
+    }
+}
+
+.addNewTask .taskTitle input.error {
+    animation: shake 0.3s ease;
+}
+
+.editTask {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    padding: calc(0.25rem * 6);
+    border-radius: 0.625rem;
+    background-color: white;
+    font-family: "Poppins", "Inter", sans-serif;
+    border: 1.5px solid rgb(232, 232, 232);
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.1s ease-in-out;
+}
+
+
+.editTask .heading2 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: left;
+}
+
+.editTask .heading2 h2 {
+    font-size: 18px;
+    height: 18px;
+    width: 100%;
+    font-weight: 500;
+    color: #101828;
+}
+
+.editTask .heading2 p {
+    font-size: 14px;
+    height: 20px;
+    color: #4a5565;
+    margin-bottom: 12px;
+}
+
+.editTask .taskTitle2 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: cemter;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.editTask .taskTitle2 label {
+    font-size: 14px;
+    height: 14px;
+}
+
+.editTask .taskTitle2 input {
+    width: 100%;
+    height: 36px;
+    padding: 4px 12px;
+    border: var(--Filters-border);
+    border-radius: 8px;
+    font-size: 14px;
+    margin-top: 10px;
+    background-color: var(--Filters-background);
+    display: flex;
+    align-items: center;
+}
+
+.editTask .taskTitle2 input:focus {
+    outline: 2px solid rgb(208, 208, 208);
+}
+
+.editTask .taskDescription2 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: cemter;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+
+.editTask .taskDescription2 label {
+    font-size: 14px;
+    height: 14px;
+}
+
+.editTask .taskDescription2 textarea {
+    width: 100%;
+    height: 64px;
+    padding: 4px 12px;
+    border: var(--Filters-border);
+    border-radius: 8px;
+    resize: none;
+    font-size: 14px;
+    margin-top: 10px;
+    background-color: var(--Filters-background);
+    display: flex;
+    align-items: center;
+}
+
+.editTask .taskDescription2 textarea:focus {
+    outline: 2px solid rgb(208, 208, 208);
+}
+
+.editTask .inputElements2 {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    margin-bottom: 18px;
+}
+
+.editTask .inputElements2 .priorityInput2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 50%;
+}
+
+.editTask .inputElements2 .priorityInput2 p {
+    font-size: 14px;
+    height: 14px;
+}
+
+.editTask .inputElements2 .priorityInput2 select {
+    margin-top: 10px;
+    border: none;
+    background-color: var(--Filters-background);
+    padding: 8px;
+    width: 100%;
+    border-radius: 8px;
+}
+
+/* .inputElements2 .priorityInput2 .select::after {
+    content: "";
+    position: absolute;
+    top: 14px;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-color: #333 transparent transparent transparent;
+  } */
+
+.editTask .inputElements2 .categoryInput2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 50%;
+}
+
+.editTask .inputElements2 .categoryInput2 p {
+    font-size: 14px;
+    height: 14px;
+}
+
+.editTask .inputElements2 .categoryInput2 select {
+    margin-top: 10px;
+    border: none;
+    background-color: var(--Filters-background);
+    padding: 8px;
+    width: 100%;
+    border-radius: 8px;
+}
+
+.editTask .dueDate2 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: cemter;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.editTask .dueDate2 label {
+    font-size: 14px;
+    height: 14px;
+    width: 100%;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.editTask .dueDate2 label svg {
+    height: 14px;
+    width: auto;
+}
+
+.editTask .dueDate2 input {
+    height: 36px;
+    padding: 4px 12px;
+    border: var(--Filters-border);
+    border-radius: 8px;
+    font-size: 14px;
+    margin-top: 12px;
+    padding-right: 70%;
+    background-color: var(--Filters-background);
+}
+
+.editTask .dueDate2 input:focus {
+    outline: 2px solid rgb(208, 208, 208);
+}
+
+.editTask .actionBtn2 {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    justify-content: right;
+}
+
+.editTask .actionBtn2 button:last-child {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 36px;
+    padding: 8px;
+    background-image: var(--Primary-Gradient);
+    opacity: 0.85;
+    border: none;
+    border-radius: 10px;
+    color: whitesmoke;
+    font-weight: 550;
+}
+
+.editTask .actionBtn2 button:last-child:hover {
+    opacity: 0.95;
+}
+
+.editTask .actionBtn2 button:first-child {
+    padding: 8px;
+    height: 36px;
+    background-color: #fff;
+    border: none;
+    border-radius: 10px;
+    border: 1px solid rgb(219, 218, 218);
+    transition: all 0.2s;
+}
+
+.editTask .actionBtn2 button:first-child:hover {
+    background-color: rgb(231, 231, 231);
+}
+
+.editTask .minimizer2 {
+    position: absolute;
+    top: 35px;
+    right: 20px;
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease-in-out;
+}
+
+.editTask .minimizer2:hover {
+    background-color: rgb(230, 230, 230);
+}
+
+.editTask .minimizer2 svg {
+    height: 16px;
+}
+
+.editTask .taskTitle2 input.error {
+    border: 2px solid #e7000b !important;
+    background-color: rgba(231, 0, 11, 0.05);
+}
+
+.editTask .taskTitle2 input.error {
+    animation: shake 0.3s ease;
+}
+
