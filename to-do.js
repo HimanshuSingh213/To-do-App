@@ -20,6 +20,26 @@ const createNewTask2 = document.querySelector(".editTask .actionBtn2 button:nth-
 const minimizer2 = document.querySelector(".editTask .minimizer2");
 const cancelEditTask = document.querySelector(".editTask .actionBtn2 button:first-child");
 const updateTask = document.querySelector(".editTask .actionBtn2 button:nth-child(2)");
+const totalTask = document.querySelector(".functionBoxes .functionBox1 p");
+const activeTask = document.querySelector(".functionBoxes .functionBox2 p");
+const completedTask = document.querySelector(".functionBoxes .functionBox3 p");
+const completionRate = document.querySelector(".functionBoxes .functionBox4 p");
+const emptyTask = document.querySelector(".resultContainer .emptyTask");
+const searchInput = document.querySelector(".filters .search input");
+const taskSortingBtn = document.querySelector(".sortButtons .taskSort .selectedFilter");
+const taskSortingDropDown = document.querySelector(".taskSorting");
+const taskSortingDropDownlist = document.querySelectorAll(".taskSorting ul li");
+const prioritySortingBtn = document.querySelector(".sortButtons .prioritySort .selectedFilter");
+const prioritySortingDropDown = document.querySelector(".prioritySorting");
+const prioritySortingDropDownlist = document.querySelectorAll(".prioritySorting ul li");
+const categorySortingBtn = document.querySelector(".sortButtons .categorySort .selectedFilter");
+const categorySortingDropDown = document.querySelector(".categorySorting");
+const categorySortingDropDownlist = document.querySelectorAll(".categorySorting ul li");
+
+let sum = 0;
+let active;
+let completed = 0;
+let compRate = 0;
 
 function createTaskCard() {
     if (!cardTemplate || !resultContainer) {
@@ -55,17 +75,17 @@ function createTaskCard() {
     if (priorityValue === "low") {
         const taskTagsClone = clone.querySelector(".taskTags");
         taskTagsClone.classList.add("low");
-        card.style.borderColor = "#00c951";
+        card.style.borderLeftColor = "#00c951";
     }
     if (priorityValue === "medium") {
         const taskTagsClone = clone.querySelector(".taskTags");
         taskTagsClone.classList.add("medium");
-        card.style.borderColor = "#f0b100";
+        card.style.borderLeftColor = "#f0b100";
     }
     if (priorityValue === "high") {
         const taskTagsClone = clone.querySelector(".taskTags");
         taskTagsClone.classList.add("high");
-        card.style.borderColor = "";
+        card.style.borderLeftColor = "";
     }
 
     const taskTagsClone = clone.querySelector(".taskTags");
@@ -102,9 +122,10 @@ function createTaskCard() {
         }
 
     }
-
     else {
-        taskTags[2].remove();
+        if (taskTags[2]) {
+            taskTags[2].style.display = 'none';
+        }
     }
 
     if (taskName) taskName.textContent = titleValue;
@@ -123,6 +144,20 @@ function createTaskCard() {
 
     //prepending Card
     resultContainer.prepend(clone);
+
+    // updating value in function box 
+    totalTask.textContent = ++sum ;
+    active = sum;
+    activeTask.textContent = active;
+
+    // unhiding the empty task 
+    if (totalTask !== 0) {
+        emptyTask.style.visibility = "";
+    }
+    else{
+        emptyTask.style.visibility = "visible";
+    }
+
 
     const newPositions = existingCards.map(card => card.getBoundingClientRect().top);
 
@@ -154,6 +189,9 @@ function createTaskCard() {
 
 
 };
+
+
+emptyTask.style.visibility = "visible";
 
 addTask.addEventListener("click", () => {
     addNewTaskSection.style.visibility = "visible";
@@ -199,6 +237,7 @@ resultContainer.addEventListener('click', (e) => {
 
     if (deleteBtn) {
         const cardToDelete = deleteBtn.closest('.resultItemBox');
+        const checkBox = cardToDelete.querySelector('.checkBox');
 
         const allCards = Array.from(resultContainer.querySelectorAll('.resultItemBox.show'));
         const deleteIndex = allCards.indexOf(cardToDelete);
@@ -230,6 +269,25 @@ resultContainer.addEventListener('click', (e) => {
                 }
             });
         }, 300);
+
+        totalTask.textContent = --sum;
+
+        if(checkBox.classList.contains("done"))
+        completedTask.textContent = --completed;
+        if(!checkBox.classList.contains("done"))
+        activeTask.textContent = --active;
+        
+        if (sum === 0) {
+            completionRate.textContent = "0%";
+        } else {
+            const percentage = (completed / sum) * 100;
+            
+            if (percentage === 0 || percentage === 100) {
+                completionRate.textContent = percentage + "%";
+            } else {
+                completionRate.textContent = percentage.toFixed(1) + "%";
+            }
+        }
     }
 });
 
@@ -245,7 +303,9 @@ resultContainer.addEventListener('click', (e) => {
         const taskTags = card.querySelectorAll('.taskTags ul li');
         const priority = taskTags[0].textContent.trim();
         const category = taskTags[1].textContent.trim();
-        const dateText = taskTags[2].innerText.trim();
+        // const dateText = taskTags[2].innerText.trim();
+        const dateText = taskTags[2] ? taskTags[2].innerText.trim() : '';
+
 
         document.querySelector("#taskTitleInput2").value = taskName;
         document.querySelector("#taskDescriptionInput2").value = taskDescription;
@@ -305,9 +365,14 @@ updateTask.addEventListener("click", () => {
         taskTags[1].textContent = newCategory;
 
         if (taskTags[2]) {
-            const svgs = taskTags[2].querySelectorAll('svg');
-            taskTags[2].textContent = newDate;
-            svgs.forEach(svg => taskTags[2].insertBefore(svg, taskTags[2].firstChild));
+            if (newDate) {
+                taskTags[2].style.display = 'flex';
+                const svgs = taskTags[2].querySelectorAll('svg');
+                taskTags[2].textContent = newDate;
+                svgs.forEach(svg => taskTags[2].insertBefore(svg, taskTags[2].firstChild));
+            } else {
+                taskTags[2].style.display = 'none';
+            }
         }
 
         const taskTagsDiv = card.querySelector('.taskTags');
@@ -334,13 +399,13 @@ updateTask.addEventListener("click", () => {
         }
 
         if (newPriority === 'low') {
-            card.style.borderColor = "#008236";
+            card.style.borderLeftColor = "#008236";
         }
         else if (newPriority === 'medium') {
-            card.style.borderColor = "#e68619";
+            card.style.borderLeftColor = "#e68619";
         }
         else if (newPriority === 'high') {
-            card.style.borderColor = "#e7000b";
+            card.style.borderLeftColor = "#e7000b";
         }
 
         delete addNewTaskSection.dataset.editingCard;
@@ -358,6 +423,7 @@ updateTask.addEventListener("click", () => {
 
 });
 
+
 resultContainer.addEventListener('click', (e) => {
     const checkBox = e.target.closest('.checkBox');
     
@@ -367,8 +433,6 @@ resultContainer.addEventListener('click', (e) => {
         const description = card.querySelector(".resultContent .description");
         const taskTagsDiv = card.querySelector(".taskTags");
 
-        // let check = taskTagsDiv.classList.contains("overdue");
-        // console.log('Was overdue?', check);
 
         if (!checkBox.dataset.wasOverdue) {
             checkBox.dataset.wasOverdue = taskTagsDiv.classList.contains("overdue");
@@ -382,6 +446,19 @@ resultContainer.addEventListener('click', (e) => {
             description.style.textDecoration = "line-through";
             description.style.opacity = "0.8";
             taskTagsDiv.classList.remove("overdue");
+            activeTask.textContent = --active;
+            completedTask.textContent = ++completed;
+            if (sum === 0) {
+                completionRate.textContent = "0%";
+            } else {
+                const percentage = (completed / sum) * 100;
+                
+                if (percentage === 0 || percentage === 100) {
+                    completionRate.textContent = percentage + "%";
+                } else {
+                    completionRate.textContent = percentage.toFixed(1) + "%";
+                }
+            }
         }
 
         else {
@@ -389,10 +466,289 @@ resultContainer.addEventListener('click', (e) => {
             taskName.style.opacity = "";
             description.style.textDecoration = "none";
             description.style.opacity = "";
-            
+            activeTask.textContent = ++active;
+            completedTask.textContent = --completed;
+
+            if (sum === 0) {
+                completionRate.textContent = "0%";
+            } else {
+                const percentage = (completed / sum) * 100;
+                
+                if (percentage === 0 || percentage === 100) {
+                    completionRate.textContent = percentage + "%";
+                } else {
+                    completionRate.textContent = percentage.toFixed(1) + "%";
+                }
+            }
+
             if (checkBox.dataset.wasOverdue === "true") {
                 taskTagsDiv.classList.add("overdue");
             }
+        }
+
+
+    }
+});
+
+searchInput.addEventListener("input", (e) => {
+    const searchValue = e.target.value.toLowerCase().trim();
+    const allCard = resultContainer.querySelectorAll(".resultItemBox");
+
+    if (searchValue === "") {
+        allCard.forEach(card => {
+            card.style.display = 'flex';
+        });
+        if (sum > 0) {
+            emptyTask.style.visibility = 'hidden';
+        }
+        return;
+    }
+
+    allCard.forEach(card => {
+
+        const taskName = card.querySelector(".resultContent .header .taskName").textContent.toLowerCase();
+
+        if (taskName.includes(searchValue)) {
+            card.style.display = "flex";
+        }
+        else{
+            card.style.display = "none";
+        }
+
+    });
+
+    const visibleCards = resultContainer.querySelectorAll('.resultItemBox:not(.hidden)');
+    if(visibleCards.length === 0 && searchInput.value !== ""){
+        emptyTask.style.visibility = "visible";
+    }
+    else if (sum > 0){
+        emptyTask.style.visibility = "hidden";
+    }
+     
+});
+
+const changeTaskPara = document.querySelector(".filters .sortButtons .taskSort #task");
+const changePriorityPara = document.querySelector(".filters .sortButtons .prioritySort #priority");
+const changeCategoryPara = document.querySelector(".filters .sortButtons .categorySort #category");
+
+taskSortingBtn.addEventListener("click", () => {
+    if (taskSortingDropDown.style.visibility !== "visible") {   
+        taskSortingDropDown.style.visibility = "visible";
+        taskSortingDropDown.style.opacity = "1";
+
+        if(taskSortingDropDownlist[0]){
+            taskSortingDropDownlist[0].addEventListener("click", () => {
+                taskSortingDropDownlist[0].classList.add("selected");
+                taskSortingDropDownlist[1].classList.remove("selected");
+                taskSortingDropDownlist[2].classList.remove("selected");
+                changeTaskPara.textContent = taskSortingDropDownlist[0].innerText;
+                taskSortingDropDown.style.visibility = "hidden";
+                taskSortingDropDown.style.opacity = "0";               
+
+            });
+        }
+        if(taskSortingDropDownlist[1]){
+            taskSortingDropDownlist[1].addEventListener("click", () => {
+                taskSortingDropDownlist[1].classList.add("selected");
+                taskSortingDropDownlist[0].classList.remove("selected");
+                taskSortingDropDownlist[2].classList.remove("selected");
+                changeTaskPara.textContent = taskSortingDropDownlist[1].innerText;
+                taskSortingDropDown.style.visibility = "hidden";
+                taskSortingDropDown.style.opacity = "0";
+            });
+        }
+        if(taskSortingDropDownlist[2]){
+            taskSortingDropDownlist[2].addEventListener("click", () => {
+                taskSortingDropDownlist[2].classList.add("selected");
+                taskSortingDropDownlist[1].classList.remove("selected");
+                taskSortingDropDownlist[0].classList.remove("selected");
+                changeTaskPara.textContent = taskSortingDropDownlist[2].innerText;
+                taskSortingDropDown.style.visibility = "hidden";
+                taskSortingDropDown.style.opacity = "0";
+            });
+        }
+
+    }
+    else{
+        taskSortingDropDown.style.visibility = "hidden";
+        taskSortingDropDown.style.opacity = "0";
+
+    }
+});
+
+prioritySortingBtn.addEventListener("click", () => {
+    if (prioritySortingDropDown.style.visibility !== "visible") {   
+        prioritySortingDropDown.style.visibility = "visible";
+        prioritySortingDropDown.style.opacity = "1";
+
+        if(prioritySortingDropDownlist[0]){
+            prioritySortingDropDownlist[0].addEventListener("click", () => {
+                prioritySortingDropDownlist[0].classList.add("selected");
+                prioritySortingDropDownlist[1].classList.remove("selected");
+                prioritySortingDropDownlist[2].classList.remove("selected");
+                prioritySortingDropDownlist[3].classList.remove("selected");
+                changePriorityPara.textContent = prioritySortingDropDownlist[0].innerText;
+                prioritySortingDropDown.style.visibility = "hidden";
+                prioritySortingDropDown.style.opacity = "0";               
+
+            });
+        }
+        if(prioritySortingDropDownlist[1]){
+            prioritySortingDropDownlist[1].addEventListener("click", () => {
+                prioritySortingDropDownlist[1].classList.add("selected");
+                prioritySortingDropDownlist[0].classList.remove("selected");
+                prioritySortingDropDownlist[2].classList.remove("selected");
+                prioritySortingDropDownlist[3].classList.remove("selected");
+                changePriorityPara.textContent = prioritySortingDropDownlist[1].innerText;
+                prioritySortingDropDown.style.visibility = "hidden";
+                prioritySortingDropDown.style.opacity = "0";
+            });
+        }
+        if(prioritySortingDropDownlist[2]){
+            prioritySortingDropDownlist[2].addEventListener("click", () => {
+                prioritySortingDropDownlist[2].classList.add("selected");
+                prioritySortingDropDownlist[1].classList.remove("selected");
+                prioritySortingDropDownlist[0].classList.remove("selected");
+                prioritySortingDropDownlist[3].classList.remove("selected");
+                changePriorityPara.textContent = prioritySortingDropDownlist[2].innerText;
+                prioritySortingDropDown.style.visibility = "hidden";
+                prioritySortingDropDown.style.opacity = "0";
+            });
+        }
+        if(prioritySortingDropDownlist[3]){
+            prioritySortingDropDownlist[3].addEventListener("click", () => {
+                prioritySortingDropDownlist[3].classList.add("selected");
+                prioritySortingDropDownlist[2].classList.remove("selected");
+                prioritySortingDropDownlist[1].classList.remove("selected");
+                prioritySortingDropDownlist[0].classList.remove("selected");
+                changePriorityPara.textContent = prioritySortingDropDownlist[3].innerText;
+                prioritySortingDropDown.style.visibility = "hidden";
+                prioritySortingDropDown.style.opacity = "0";
+            });
+        }
+
+    }
+    else{
+        prioritySortingDropDown.style.visibility = "hidden";
+        prioritySortingDropDown.style.opacity = "0";
+
+    }
+});
+
+
+categorySortingBtn.addEventListener("click", () => {
+    if (categorySortingDropDown.style.visibility !== "visible") {   
+        categorySortingDropDown.style.visibility = "visible";
+        categorySortingDropDown.style.opacity = "1";
+
+        if(categorySortingDropDownlist[0]){
+            categorySortingDropDownlist[0].addEventListener("click", () => {
+                categorySortingDropDownlist[0].classList.add("selected");
+                categorySortingDropDownlist[1].classList.remove("selected");
+                categorySortingDropDownlist[2].classList.remove("selected");
+                categorySortingDropDownlist[3].classList.remove("selected");
+                categorySortingDropDownlist[4].classList.remove("selected");
+                changeCategoryPara.textContent = categorySortingDropDownlist[0].innerText;
+                categorySortingDropDown.style.visibility = "hidden";
+                categorySortingDropDown.style.opacity = "0";               
+
+            });
+        }
+        if(categorySortingDropDownlist[1]){
+            categorySortingDropDownlist[1].addEventListener("click", () => {
+                categorySortingDropDownlist[1].classList.add("selected");
+                categorySortingDropDownlist[0].classList.remove("selected");
+                categorySortingDropDownlist[2].classList.remove("selected");
+                categorySortingDropDownlist[3].classList.remove("selected");
+                categorySortingDropDownlist[4].classList.remove("selected");
+                changeCategoryPara.textContent = categorySortingDropDownlist[1].innerText;
+                categorySortingDropDown.style.visibility = "hidden";
+                categorySortingDropDown.style.opacity = "0";
+            });
+        }
+        if(categorySortingDropDownlist[2]){
+            categorySortingDropDownlist[2].addEventListener("click", () => {
+                categorySortingDropDownlist[2].classList.add("selected");
+                categorySortingDropDownlist[1].classList.remove("selected");
+                categorySortingDropDownlist[0].classList.remove("selected");
+                categorySortingDropDownlist[3].classList.remove("selected");
+                categorySortingDropDownlist[4].classList.remove("selected");
+                changeCategoryPara.textContent = categorySortingDropDownlist[2].innerText;
+                categorySortingDropDown.style.visibility = "hidden";
+                categorySortingDropDown.style.opacity = "0";
+            });
+        }
+        if(categorySortingDropDownlist[3]){
+            categorySortingDropDownlist[3].addEventListener("click", () => {
+                categorySortingDropDownlist[4].classList.remove("selected");
+                categorySortingDropDownlist[3].classList.add("selected");
+                categorySortingDropDownlist[2].classList.remove("selected");
+                categorySortingDropDownlist[1].classList.remove("selected");
+                categorySortingDropDownlist[0].classList.remove("selected");
+                changeCategoryPara.textContent = categorySortingDropDownlist[3].innerText;
+                categorySortingDropDown.style.visibility = "hidden";
+                categorySortingDropDown.style.opacity = "0";
+            });
+        }
+        if(categorySortingDropDownlist[4]){
+            categorySortingDropDownlist[4].addEventListener("click", () => {
+                categorySortingDropDownlist[4].classList.add("selected");
+                categorySortingDropDownlist[3].classList.remove("selected");
+                categorySortingDropDownlist[2].classList.remove("selected");
+                categorySortingDropDownlist[1].classList.remove("selected");
+                categorySortingDropDownlist[0].classList.remove("selected");
+                changeCategoryPara.textContent = categorySortingDropDownlist[4].innerText;
+                categorySortingDropDown.style.visibility = "hidden";
+                categorySortingDropDown.style.opacity = "0";
+            });
+        }
+
+    }
+    else{
+        categorySortingDropDown.style.visibility = "hidden";
+        categorySortingDropDown.style.opacity = "0";
+
+    }
+});
+
+document.addEventListener('click', (e) => {
+    if (!taskSortingBtn.contains(e.target) && !taskSortingDropDown.contains(e.target)) {
+        taskSortingDropDown.style.visibility = 'hidden';
+        taskSortingDropDown.style.opacity = '0';
+    }
+    
+    if (!prioritySortingBtn.contains(e.target) && !prioritySortingDropDown.contains(e.target)) {
+        prioritySortingDropDown.style.visibility = 'hidden';
+        prioritySortingDropDown.style.opacity = '0';
+    }
+    
+    if (!categorySortingBtn.contains(e.target) && !categorySortingDropDown.contains(e.target)) {
+        categorySortingDropDown.style.visibility = 'hidden';
+        categorySortingDropDown.style.opacity = '0';
+    }
+
+    const addTaskBtn = document.querySelector('.addTask');
+
+    if (addNewTaskSection.style.visibility === 'visible') {
+        if (!addNewTaskSection.contains(e.target) && !addTaskBtn.contains(e.target)) {
+            addNewTaskSection.style.visibility = 'hidden';
+            addNewTaskSection.style.opacity = '0';
+        }
+    }
+
+    if (editTaskSection.style.visibility === 'visible') {
+        const editBtns = document.querySelectorAll('.resultContent .header button:first-child');
+        let clickedEditBtn = false;
+        
+        editBtns.forEach(btn => {
+            if (btn.contains(e.target)) {
+                clickedEditBtn = true;
+            }
+        });
+        
+        if (!editTaskSection.contains(e.target) && !clickedEditBtn) {
+            editTaskSection.style.visibility = 'hidden';
+            editTaskSection.style.opacity = '0';
         }
     }
 });

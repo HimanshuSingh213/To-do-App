@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Baloo+Bhai+2:wght@400..800&family=Bitcount+Prop+Single+Ink:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 :root {
-    --Primary-Gradient: linear-gradient(to right in oklab, #9810fa, #e60076);
+    --Primary-Gradient: linear-gradient(to right in oklab, #00bba7, #00b8db);
     --Filters-background: #f3f3f5;
     --Filters-border-radius: 12px;
     --FiltersItem-border: none;
@@ -36,13 +36,13 @@ main {
     justify-content: center;
     align-items: center;
     width: 100%;
-    min-height: 100vh;
-    background-image: linear-gradient(to bottom right, #faf5ff, #fdf2f8, #eff6ff);
+    min-height: 120vh;
+    background-image: linear-gradient(to bottom right, #f0fdfa, #ecfeff, #fff7ed);
 }
 
 .contentBox {
     width: 1152px;
-    min-height: 100vh;
+    min-height: 120vh;
     padding: 32px 15px;
 }
 
@@ -57,7 +57,7 @@ main {
 .contentBox nav .navLeft h3 {
     font-size: 16px;
     margin-bottom: 0.25rem;
-    font-weight: 400;
+    font-weight: 500;
     background-clip: text;
     color: transparent;
     background-image: var(--Primary-Gradient);
@@ -90,8 +90,11 @@ nav .navRight .themeChanger {
     transition: all 0.2s ease-in-out;
 }
 
-nav .navRight .themeChanger:hover {
-    background-color: #dfdfdf;
+
+@media (hover: hover) and (pointer: fine) {
+    nav .navRight .themeChanger:hover {
+        background-color: #dfdfdf;
+    }
 }
 
 nav .navRight .themeChanger svg {
@@ -114,9 +117,8 @@ nav .navRight .addTask {
     opacity: 0.85;
     border: none;
     border-radius: 10px;
-    /* transition: all 0.2s ease-in-out; */
     color: whitesmoke;
-    font-weight: 400;
+    font-weight: 500;
 }
 
 nav .navRight .addTask:hover {
@@ -142,7 +144,7 @@ nav .navRight .addTask svg {
     background-color: #fff;
     padding: 24px;
     border-radius: 15px;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.15s ease-in-out;
     box-shadow: 0 4px 6px -1px #0000001a, 0 2px 4px -2px #0000001a;
 }
 
@@ -157,7 +159,7 @@ nav .navRight .addTask svg {
 }
 
 .contentBox .functionBoxes .functionBox:hover {
-    box-shadow: 0px 17px 40px 0px #0000001a;
+    box-shadow: 0px 17px 20px 0px #0000001a;
 }
 
 .contentBox .functionBoxes .functionBox1 svg {
@@ -248,10 +250,14 @@ nav .navRight .addTask svg {
     border: var(--Filters-border);
     padding: var(--filterItem-padding);
     height: var(--FilterItem-height);
+}
+
+.filters .sortButtons .selectedFilter {
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
+} 
 
 .filters .sortButtons .sortItems svg {
     stroke: var(--Filters-SVG-stroke);
@@ -279,6 +285,181 @@ nav .navRight .addTask svg {
     stroke: rgb(43, 43, 43);
 }
 
+.filters .sortButtons .sortItems{
+    position: relative;
+}
+
+.taskSorting{
+    position: absolute;
+    right: 25px;
+    top: 38px;
+    background-color: white;
+    height: 100px;
+    width: 120px;
+    max-width: 100%;
+    border: 1px solid rgb(201, 201, 201);
+    box-shadow: 0 4px 6px -1px #0000001a, 0 2px 4px -2px #0000001a;
+    visibility: hidden;
+    opacity: 0;
+    padding: 8px;
+    border-radius: var(--Filters-border-radius);
+    transition: all 0.15s ease-in-out;
+}
+
+.taskSorting ul{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    list-style-type: none;
+    gap: 5px;
+}
+
+.taskSorting ul li.selected{
+    background-color: var(--Filters-background);
+}
+
+.taskSorting ul li.selected svg{
+    visibility: visible;
+}
+
+.taskSorting ul li{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+    padding: 2px 5px;
+    height: 25px;
+    width: 100%;
+}
+
+.taskSorting ul li svg{
+    visibility: hidden;
+    stroke: black;
+    height: 18px;
+    width: auto;
+}
+
+.taskSorting ul li:hover{
+    background-color: var(--Filters-background);
+}
+
+.prioritySorting{
+    position: absolute;
+    right: 25px;
+    top: 38px;
+    background-color: white;
+    height: 130px;
+    width: 120px;
+    max-width: 100%;
+    border: 1px solid rgb(201, 201, 201);
+    box-shadow: 0 4px 6px -1px #0000001a, 0 2px 4px -2px #0000001a;
+    visibility: hidden;
+    opacity: 0;
+    padding: 8px;
+    border-radius: var(--Filters-border-radius);
+    transition: all 0.15s ease-in-out;
+}
+
+.prioritySorting ul{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    list-style-type: none;
+    gap: 5px;
+}
+
+.prioritySorting ul li.selected{
+    background-color: var(--Filters-background);
+}
+
+.prioritySorting ul li.selected svg{
+    visibility: visible;
+}
+
+.prioritySorting ul li{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+    padding: 2px 5px;
+    height: 25px;
+    width: 100%;
+}
+
+.prioritySorting ul li svg{
+    visibility: hidden;
+    stroke: black;
+    height: 18px;
+    width: auto;
+}
+
+.prioritySorting ul li:hover{
+    background-color: var(--Filters-background);
+}
+
+.categorySorting{
+    position: absolute;
+    right: 25px;
+    top: 38px;
+    background-color: white;
+    height: 160px;
+    width: 120px;
+    max-width: 100%;
+    border: 1px solid rgb(201, 201, 201);
+    box-shadow: 0 4px 6px -1px #0000001a, 0 2px 4px -2px #0000001a;
+    visibility: hidden;
+    opacity: 0;
+    padding: 8px;
+    border-radius: var(--Filters-border-radius);
+    transition: all 0.15s ease-in-out;
+}
+
+.categorySorting ul{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    list-style-type: none;
+    gap: 5px;
+}
+
+.categorySorting ul li.selected{
+    background-color: var(--Filters-background);
+}
+
+.categorySorting ul li.selected svg{
+    visibility: visible;
+}
+.categorySorting ul li:first-child{
+    font-size: 11px;
+}
+
+.categorySorting ul li{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+    padding: 2px 5px;
+    height: 25px;
+    width: 100%;
+}
+
+.categorySorting ul li svg{
+    visibility: hidden;
+    stroke: black;
+    height: 18px;
+    width: auto;
+}
+
+.categorySorting ul li:hover{
+    background-color: var(--Filters-background);
+}
+
 .resultContainer {
     position: relative;
     display: flex;
@@ -301,11 +482,11 @@ nav .navRight .addTask svg {
 .resultContainer .emptyTask svg {
     height: 96px;
     width: 96px;
-    stroke: #ad46ff;
+    stroke: #00bba7;
     border-radius: 50%;
     margin-bottom: 16px;
     padding: 24px;
-    background-image: linear-gradient(to bottom right in oklab, #f3e8ff, #fce7f3);
+    background-image: linear-gradient(to bottom right in oklab, #cbfbf1, #cefafe);
 }
 
 .resultContainer .emptyTask h3 {
@@ -325,6 +506,9 @@ nav .navRight .addTask svg {
     padding: calc(0.25rem*4);
     border-radius: 15px;
     border-left: 5px solid red;
+    border-right: 2px solid rgb(226, 226, 226);
+    border-top: 2px solid rgb(226, 226, 226);
+    border-bottom: 2px solid rgb(226, 226, 226);
     width: 100%;
     min-height: 110px;
     display: flex;
@@ -334,15 +518,19 @@ nav .navRight .addTask svg {
     transform: translateY(20px);
 }
 
-.resultItemBox.show{
+.resultItemBox:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.resultItemBox.show {
     opacity: 1;
     transform: translateY(0px);
 }
 
-.checkBox.done button{
+.checkBox.done button {
     background-color: rgb(57, 57, 57) !important;
     border-radius: 3px !important;
-    border: 1.5px solid #9878eb !important;
+    border: 2px solid #9878eb !important;
     height: 18px !important;
     width: 18px !important;
     cursor: pointer !important;
@@ -351,7 +539,7 @@ nav .navRight .addTask svg {
     justify-content: center !important;
 }
 
-.checkBox.done button img{
+.checkBox.done button img {
     display: flex !important;
     height: 16px !important;
     width: 16px !important;
@@ -373,7 +561,7 @@ nav .navRight .addTask svg {
 
 }
 
-.resultItemBox .checkBox button img{
+.resultItemBox .checkBox button img {
     display: none;
 }
 
@@ -509,15 +697,15 @@ nav .navRight .addTask svg {
     width: 12.5px;
 }
 
-.resultContainer .taskTags ul li:last-child svg:first-child{
+.resultContainer .taskTags ul li:last-child svg:first-child {
     visibility: hidden;
 }
 
-.resultContainer .taskTags ul li:last-child svg:last-child{
+.resultContainer .taskTags ul li:last-child svg:last-child {
     visibility: visible !important;
 }
 
-.resultContainer .taskTags.overdue ul li:last-child svg:first-child{
+.resultContainer .taskTags.overdue ul li:last-child svg:first-child {
     visibility: visible !important;
 }
 
@@ -525,7 +713,7 @@ nav .navRight .addTask svg {
     stroke: #e7000b !important;
 }
 
-.resultContainer .taskTags.overdue ul li:last-child{
+.resultContainer .taskTags.overdue ul li:last-child {
     border-color: #e7000b !important;
     color: #e7000b !important;
 }
@@ -721,7 +909,7 @@ nav .navRight .addTask svg {
     align-items: center;
 }
 
-.addNewTask .dueDate label svg{
+.addNewTask .dueDate label svg {
     height: 14px;
     width: auto;
 }
@@ -741,7 +929,7 @@ nav .navRight .addTask svg {
     outline: 2px solid rgb(208, 208, 208);
 }
 
-.addNewTask .actionBtn{
+.addNewTask .actionBtn {
     margin-top: 10px;
     display: flex;
     align-items: center;
@@ -768,7 +956,7 @@ nav .navRight .addTask svg {
     opacity: 0.95;
 }
 
-.addNewTask .actionBtn button:first-child{
+.addNewTask .actionBtn button:first-child {
     padding: 8px;
     height: 36px;
     background-color: #fff;
@@ -778,11 +966,11 @@ nav .navRight .addTask svg {
     transition: all 0.2s;
 }
 
-.addNewTask .actionBtn button:first-child:hover{
+.addNewTask .actionBtn button:first-child:hover {
     background-color: rgb(231, 231, 231);
 }
 
-.addNewTask .minimizer{
+.addNewTask .minimizer {
     position: absolute;
     top: 35px;
     right: 20px;
@@ -795,11 +983,11 @@ nav .navRight .addTask svg {
     transition: all 0.15s ease-in-out;
 }
 
-.addNewTask .minimizer:hover{
+.addNewTask .minimizer:hover {
     background-color: rgb(230, 230, 230);
 }
 
-.addNewTask .minimizer svg{
+.addNewTask .minimizer svg {
     height: 16px;
 }
 
@@ -809,16 +997,18 @@ nav .navRight .addTask svg {
 }
 
 @keyframes shake {
-    0%, 100% { 
-        transform: translateX(0); 
+
+    0%,
+    100% {
+        transform: translateX(0);
     }
 
-    25% { 
-        transform: translateX(-10px); 
+    25% {
+        transform: translateX(-10px);
     }
 
-    75% { 
-        transform: translateX(10px); 
+    75% {
+        transform: translateX(10px);
     }
 }
 
@@ -1107,4 +1297,3 @@ nav .navRight .addTask svg {
 .editTask .taskTitle2 input.error {
     animation: shake 0.3s ease;
 }
-
