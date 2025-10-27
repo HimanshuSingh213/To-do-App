@@ -271,6 +271,8 @@ nav .navRight .addTask svg {
     border: 1px solid #d7d7d7;
     border-radius: 8px;
     background-color: transparent;
+    opacity: 0;
+    visibility: hidden;
     transform: translateX(5px);
     transition: all 0.2s ease-in-out;
 }
@@ -291,11 +293,12 @@ nav .navRight .addTask svg {
 
 .taskSorting{
     position: absolute;
-    right: 25px;
+    z-index: 1000;
+    right: 5%;
     top: 38px;
     background-color: white;
     height: 100px;
-    width: 120px;
+    width: 140px;
     max-width: 100%;
     border: 1px solid rgb(201, 201, 201);
     box-shadow: 0 4px 6px -1px #0000001a, 0 2px 4px -2px #0000001a;
@@ -347,11 +350,12 @@ nav .navRight .addTask svg {
 
 .prioritySorting{
     position: absolute;
-    right: 25px;
+    z-index: 1000;
+    right: 5%;
     top: 38px;
     background-color: white;
     height: 130px;
-    width: 120px;
+    width: 140px;
     max-width: 100%;
     border: 1px solid rgb(201, 201, 201);
     box-shadow: 0 4px 6px -1px #0000001a, 0 2px 4px -2px #0000001a;
@@ -403,11 +407,12 @@ nav .navRight .addTask svg {
 
 .categorySorting{
     position: absolute;
-    right: 25px;
+    z-index: 1000;
+    right: 5%;
     top: 38px;
     background-color: white;
     height: 160px;
-    width: 120px;
+    width: 140px;
     max-width: 100%;
     border: 1px solid rgb(201, 201, 201);
     box-shadow: 0 4px 6px -1px #0000001a, 0 2px 4px -2px #0000001a;
@@ -435,7 +440,7 @@ nav .navRight .addTask svg {
     visibility: visible;
 }
 .categorySorting ul li:first-child{
-    font-size: 11px;
+    font-size: 12.5px;
 }
 
 .categorySorting ul li{
@@ -1296,4 +1301,64 @@ nav .navRight .addTask svg {
 
 .editTask .taskTitle2 input.error {
     animation: shake 0.3s ease;
+}
+
+.taskAdded{
+    position: fixed;
+    bottom: 5vh;
+    right: 5vw;
+    height: 40px;
+    width: 250px;
+    background-color: white;
+    border: 1px solid rgb(227, 224, 224);
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+    border-radius: 12px;
+    padding: 5px 8px;
+    opacity: 0.6;
+    transition: all 0.3s ease-in-out;
+    transform: translateY(200%);
+}
+
+.taskAdded svg{
+    background-color: black;
+    stroke: white;
+    border-radius: 50%;
+    height: 80%;
+    width: auto;
+}
+.taskAdded p{
+    font-size: 13px;
+}
+
+.taskDeleted{
+    position: fixed;
+    bottom: 5vh;
+    right: 5vw;
+    height: 40px;
+    width: 250px;
+    background-color: white;
+    border: 1px solid rgb(227, 224, 224);
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+    border-radius: 12px;
+    padding: 5px 8px;
+    opacity: 0.6;
+    transition: all 0.3s ease-in-out;
+    transform: translateY(200%);
+}
+
+.taskDeleted svg{
+    background-color: black;
+    stroke: white;
+    border-radius: 50%;
+    height: 80%;
+    width: auto;
+}
+.taskDeleted p{
+    font-size: 13px;
 }

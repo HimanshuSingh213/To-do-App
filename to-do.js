@@ -18,7 +18,6 @@ const minimizer = document.querySelector(".addNewTask .minimizer");
 const cancelAddTask2 = document.querySelector(".editTask .actionBtn2 button:first-child");
 const createNewTask2 = document.querySelector(".editTask .actionBtn2 button:nth-child(2)");
 const minimizer2 = document.querySelector(".editTask .minimizer2");
-const cancelEditTask = document.querySelector(".editTask .actionBtn2 button:first-child");
 const updateTask = document.querySelector(".editTask .actionBtn2 button:nth-child(2)");
 const totalTask = document.querySelector(".functionBoxes .functionBox1 p");
 const activeTask = document.querySelector(".functionBoxes .functionBox2 p");
@@ -35,7 +34,18 @@ const prioritySortingDropDownlist = document.querySelectorAll(".prioritySorting 
 const categorySortingBtn = document.querySelector(".sortButtons .categorySort .selectedFilter");
 const categorySortingDropDown = document.querySelector(".categorySorting");
 const categorySortingDropDownlist = document.querySelectorAll(".categorySorting ul li");
+const changeTaskPara = document.querySelector(".filters .sortButtons .taskSort #task");
+const changePriorityPara = document.querySelector(".filters .sortButtons .prioritySort #priority");
+const changeCategoryPara = document.querySelector(".filters .sortButtons .categorySort #category");
+const taskAdded = document.querySelector(".taskAdded");
+const taskDeleted = document.querySelector(".taskDeleted");
 
+let activeFilters = {
+    taskStatus: "all",
+    priority: "all",
+    category: "all",
+    searchText: ""
+};
 let sum = 0;
 let active;
 let completed = 0;
@@ -146,7 +156,7 @@ function createTaskCard() {
     resultContainer.prepend(clone);
 
     // updating value in function box 
-    totalTask.textContent = ++sum ;
+    totalTask.textContent = ++sum;
     active = sum;
     activeTask.textContent = active;
 
@@ -154,7 +164,7 @@ function createTaskCard() {
     if (totalTask !== 0) {
         emptyTask.style.visibility = "";
     }
-    else{
+    else {
         emptyTask.style.visibility = "visible";
     }
 
@@ -182,11 +192,20 @@ function createTaskCard() {
         insertedCard.classList.add('show');
     }, 30);
 
+    taskAdded.style.transform = "translateY(0%)";
+    taskAdded.style.opacity = "1";
+
+    setTimeout(() => {
+        taskAdded.style.transform = "";
+        taskAdded.style.opacity = "";
+    }, 2000);
+
     // clearing the inouts
     taskTitleInput.value = "";
     taskDescriptionInput.value = "";
     taskDueDateInput.value = "";
-
+    taskCategoryInput.value = "personal";
+    taskPriorityInput.value = "medium";
 
 };
 
@@ -206,6 +225,38 @@ cancelAddTask.addEventListener("click", () => {
     addNewTaskSection.style.opacity = "0";
     setTimeout(() => {
         taskTitleInput.classList.remove('error');
+
+        const taskTitle = document.querySelector('#taskTitleInput');
+        const taskDesc = document.querySelector('#taskDescriptionInput');
+        const taskPriority = document.querySelector('#priorityInput');
+        const taskCategory = document.querySelector('#categoryInput');
+        const taskDate = document.querySelector('#dueDate');
+
+        if (taskTitle) taskTitle.value = "";
+        if (taskDesc) taskDesc.value = "";
+        if (taskPriority) taskPriority.value = "medium";
+        if (taskCategory) taskCategory.value = "personal";
+        if (taskDate) taskDate.value = "";
+    }, 100);
+});
+cancelAddTask2.addEventListener("click", () => {
+    editTaskSection.style.visibility = "hidden";
+    editTaskSection.style.opacity = "0";
+    setTimeout(() => {
+        taskTitle2.classList.remove('error');
+
+        const taskTitle2 = document.querySelector('#taskTitleInput2');
+        const taskDesc2 = document.querySelector('#taskDescriptionInput2');
+        const taskPriority2 = document.querySelector('#priorityInput2');
+        const taskCategory2 = document.querySelector('#categoryInput2');
+        const taskDate2 = document.querySelector('#dueDate2');
+
+        if (taskTitle2) taskTitle2.value = "";
+        if (taskDesc2) taskDesc2.value = "";
+        if (taskPriority2) taskPriority2.value = "medium";
+        if (taskCategory2) taskCategory2.value = "personal";
+        if (taskDate2) taskDate2.value = "";
+
     }, 100);
 });
 
@@ -214,6 +265,19 @@ minimizer.addEventListener("click", () => {
     addNewTaskSection.style.opacity = "0";
     setTimeout(() => {
         taskTitleInput.classList.remove('error');
+
+        const taskTitle = document.querySelector('#taskTitleInput');
+        const taskDesc = document.querySelector('#taskDescriptionInput');
+        const taskPriority = document.querySelector('#priorityInput');
+        const taskCategory = document.querySelector('#categoryInput');
+        const taskDate = document.querySelector('#dueDate');
+
+        if (taskTitle) taskTitle.value = "";
+        if (taskDesc) taskDesc.value = "";
+        if (taskPriority) taskPriority.value = "medium";
+        if (taskCategory) taskCategory.value = "personal";
+        if (taskDate) taskDate.value = "";
+
     }, 100);
 });
 
@@ -272,30 +336,38 @@ resultContainer.addEventListener('click', (e) => {
 
         totalTask.textContent = --sum;
 
-        if(checkBox.classList.contains("done"))
-        completedTask.textContent = --completed;
-        if(!checkBox.classList.contains("done"))
-        activeTask.textContent = --active;
-        
+        if (checkBox.classList.contains("done"))
+            completedTask.textContent = --completed;
+        if (!checkBox.classList.contains("done"))
+            activeTask.textContent = --active;
+
         if (sum === 0) {
             completionRate.textContent = "0%";
         } else {
             const percentage = (completed / sum) * 100;
-            
+
             if (percentage === 0 || percentage === 100) {
                 completionRate.textContent = percentage + "%";
             } else {
                 completionRate.textContent = percentage.toFixed(1) + "%";
             }
         }
+
+        taskDeleted.style.transform = "translateY(0%)";
+        taskDeleted.style.opacity = "1";
+
+        setTimeout(() => {
+            taskDeleted.style.transform = "";
+            taskDeleted.style.opacity = "";
+        }, 2000);
     }
 });
 
-editTaskSection = document.querySelector(".editTask");
+const editTaskSection = document.querySelector(".editTask");
 
 resultContainer.addEventListener('click', (e) => {
     const editBtn = e.target.closest(" .resultContent .header button:first-child");
-    
+
     if (editBtn) {
         const card = editBtn.closest('.resultItemBox');
         const taskName = card.querySelector('.resultContent .header .taskName').textContent;
@@ -303,7 +375,6 @@ resultContainer.addEventListener('click', (e) => {
         const taskTags = card.querySelectorAll('.taskTags ul li');
         const priority = taskTags[0].textContent.trim();
         const category = taskTags[1].textContent.trim();
-        // const dateText = taskTags[2].innerText.trim();
         const dateText = taskTags[2] ? taskTags[2].innerText.trim() : '';
 
 
@@ -327,21 +398,26 @@ resultContainer.addEventListener('click', (e) => {
 
 });
 
-
-cancelEditTask.addEventListener("click", () => {
-    editTaskSection.style.visibility = "hidden";
-    editTaskSection.style.opacity = "0";
-    setTimeout(() => {
-        taskTitleInput2.classList.remove('error');
-    }, 100);
-});
-
 minimizer2.addEventListener("click", () => {
     editTaskSection.style.visibility = "hidden";
     editTaskSection.style.opacity = "0";
     setTimeout(() => {
-        taskTitleInput2.classList.remove('error');
+        taskTitle2.classList.remove('error');
+
+        const taskTitle2 = document.querySelector('#taskTitleInput2');
+        const taskDesc2 = document.querySelector('#taskDescriptionInput2');
+        const taskPriority2 = document.querySelector('#priorityInput2');
+        const taskCategory2 = document.querySelector('#categoryInput2');
+        const taskDate2 = document.querySelector('#dueDate2');
+
+        if (taskTitle2) taskTitle2.value = "";
+        if (taskDesc2) taskDesc2.value = "";
+        if (taskPriority2) taskPriority2.value = "medium";
+        if (taskCategory2) taskCategory2.value = "personal";
+        if (taskDate2) taskDate2.value = "";
+
     }, 100);
+
 });
 
 updateTask.addEventListener("click", () => {
@@ -391,10 +467,12 @@ updateTask.addEventListener("click", () => {
 
             if (taskDate < today || taskDate.getTime() === today.getTime()) {
                 taskTagsDiv.classList.add("overdue");
-            } else {
+            }
+            else {
                 taskTagsDiv.classList.remove("overdue");
             }
-        } else {
+        }
+        else {
             taskTagsDiv.classList.remove("overdue");
         }
 
@@ -406,6 +484,31 @@ updateTask.addEventListener("click", () => {
         }
         else if (newPriority === 'high') {
             card.style.borderLeftColor = "#e7000b";
+        }
+
+        if (newCategory === "work") {
+            taskTagsDiv.classList.add("work");
+            taskTagsDiv.classList.remove("personal");
+            taskTagsDiv.classList.remove("shopping");
+            taskTagsDiv.classList.remove("health");
+        }
+        else if (newCategory === "personal") {
+            taskTagsDiv.classList.add("personal");
+            taskTagsDiv.classList.remove("work");
+            taskTagsDiv.classList.remove("shopping");
+            taskTagsDiv.classList.remove("health");
+        }
+        else if (newCategory === "shopping") {
+            taskTagsDiv.classList.add("shopping");
+            taskTagsDiv.classList.remove("work");
+            taskTagsDiv.classList.remove("personal");
+            taskTagsDiv.classList.remove("health");
+        }
+        else if (newCategory === "health") {
+            taskTagsDiv.classList.add("health");
+            taskTagsDiv.classList.remove("work");
+            taskTagsDiv.classList.remove("personal");
+            taskTagsDiv.classList.remove("shopping");
         }
 
         delete addNewTaskSection.dataset.editingCard;
@@ -426,7 +529,7 @@ updateTask.addEventListener("click", () => {
 
 resultContainer.addEventListener('click', (e) => {
     const checkBox = e.target.closest('.checkBox');
-    
+
     if (checkBox) {
         const card = checkBox.closest('.resultItemBox');
         const taskName = card.querySelector(".resultContent .header .taskName");
@@ -452,7 +555,7 @@ resultContainer.addEventListener('click', (e) => {
                 completionRate.textContent = "0%";
             } else {
                 const percentage = (completed / sum) * 100;
-                
+
                 if (percentage === 0 || percentage === 100) {
                     completionRate.textContent = percentage + "%";
                 } else {
@@ -473,7 +576,7 @@ resultContainer.addEventListener('click', (e) => {
                 completionRate.textContent = "0%";
             } else {
                 const percentage = (completed / sum) * 100;
-                
+
                 if (percentage === 0 || percentage === 100) {
                     completionRate.textContent = percentage + "%";
                 } else {
@@ -491,63 +594,31 @@ resultContainer.addEventListener('click', (e) => {
 });
 
 searchInput.addEventListener("input", (e) => {
-    const searchValue = e.target.value.toLowerCase().trim();
-    const allCard = resultContainer.querySelectorAll(".resultItemBox");
-
-    if (searchValue === "") {
-        allCard.forEach(card => {
-            card.style.display = 'flex';
-        });
-        if (sum > 0) {
-            emptyTask.style.visibility = 'hidden';
-        }
-        return;
-    }
-
-    allCard.forEach(card => {
-
-        const taskName = card.querySelector(".resultContent .header .taskName").textContent.toLowerCase();
-
-        if (taskName.includes(searchValue)) {
-            card.style.display = "flex";
-        }
-        else{
-            card.style.display = "none";
-        }
-
-    });
-
-    const visibleCards = resultContainer.querySelectorAll('.resultItemBox:not(.hidden)');
-    if(visibleCards.length === 0 && searchInput.value !== ""){
-        emptyTask.style.visibility = "visible";
-    }
-    else if (sum > 0){
-        emptyTask.style.visibility = "hidden";
-    }
-     
+    activeFilters.searchText = e.target.value.toLowerCase().trim();
+    applyAllFilters();
 });
 
-const changeTaskPara = document.querySelector(".filters .sortButtons .taskSort #task");
-const changePriorityPara = document.querySelector(".filters .sortButtons .prioritySort #priority");
-const changeCategoryPara = document.querySelector(".filters .sortButtons .categorySort #category");
-
 taskSortingBtn.addEventListener("click", () => {
-    if (taskSortingDropDown.style.visibility !== "visible") {   
+    if (taskSortingDropDown.style.visibility !== "visible") {
         taskSortingDropDown.style.visibility = "visible";
         taskSortingDropDown.style.opacity = "1";
 
-        if(taskSortingDropDownlist[0]){
+        if (taskSortingDropDownlist[0]) {
             taskSortingDropDownlist[0].addEventListener("click", () => {
                 taskSortingDropDownlist[0].classList.add("selected");
                 taskSortingDropDownlist[1].classList.remove("selected");
                 taskSortingDropDownlist[2].classList.remove("selected");
                 changeTaskPara.textContent = taskSortingDropDownlist[0].innerText;
                 taskSortingDropDown.style.visibility = "hidden";
-                taskSortingDropDown.style.opacity = "0";               
+                taskSortingDropDown.style.opacity = "0";
+
+
+                activeFilters.taskStatus = "all";
+                applyAllFilters();
 
             });
         }
-        if(taskSortingDropDownlist[1]){
+        if (taskSortingDropDownlist[1]) {
             taskSortingDropDownlist[1].addEventListener("click", () => {
                 taskSortingDropDownlist[1].classList.add("selected");
                 taskSortingDropDownlist[0].classList.remove("selected");
@@ -555,9 +626,12 @@ taskSortingBtn.addEventListener("click", () => {
                 changeTaskPara.textContent = taskSortingDropDownlist[1].innerText;
                 taskSortingDropDown.style.visibility = "hidden";
                 taskSortingDropDown.style.opacity = "0";
+
+                activeFilters.taskStatus = "active";
+                applyAllFilters();
             });
         }
-        if(taskSortingDropDownlist[2]){
+        if (taskSortingDropDownlist[2]) {
             taskSortingDropDownlist[2].addEventListener("click", () => {
                 taskSortingDropDownlist[2].classList.add("selected");
                 taskSortingDropDownlist[1].classList.remove("selected");
@@ -565,11 +639,14 @@ taskSortingBtn.addEventListener("click", () => {
                 changeTaskPara.textContent = taskSortingDropDownlist[2].innerText;
                 taskSortingDropDown.style.visibility = "hidden";
                 taskSortingDropDown.style.opacity = "0";
+
+                activeFilters.taskStatus = "completed";
+                applyAllFilters();
             });
         }
 
     }
-    else{
+    else {
         taskSortingDropDown.style.visibility = "hidden";
         taskSortingDropDown.style.opacity = "0";
 
@@ -577,11 +654,11 @@ taskSortingBtn.addEventListener("click", () => {
 });
 
 prioritySortingBtn.addEventListener("click", () => {
-    if (prioritySortingDropDown.style.visibility !== "visible") {   
+    if (prioritySortingDropDown.style.visibility !== "visible") {
         prioritySortingDropDown.style.visibility = "visible";
         prioritySortingDropDown.style.opacity = "1";
 
-        if(prioritySortingDropDownlist[0]){
+        if (prioritySortingDropDownlist[0]) {
             prioritySortingDropDownlist[0].addEventListener("click", () => {
                 prioritySortingDropDownlist[0].classList.add("selected");
                 prioritySortingDropDownlist[1].classList.remove("selected");
@@ -589,11 +666,14 @@ prioritySortingBtn.addEventListener("click", () => {
                 prioritySortingDropDownlist[3].classList.remove("selected");
                 changePriorityPara.textContent = prioritySortingDropDownlist[0].innerText;
                 prioritySortingDropDown.style.visibility = "hidden";
-                prioritySortingDropDown.style.opacity = "0";               
+                prioritySortingDropDown.style.opacity = "0";
+
+                activeFilters.priority = "all";
+                applyAllFilters();
 
             });
         }
-        if(prioritySortingDropDownlist[1]){
+        if (prioritySortingDropDownlist[1]) {
             prioritySortingDropDownlist[1].addEventListener("click", () => {
                 prioritySortingDropDownlist[1].classList.add("selected");
                 prioritySortingDropDownlist[0].classList.remove("selected");
@@ -602,9 +682,12 @@ prioritySortingBtn.addEventListener("click", () => {
                 changePriorityPara.textContent = prioritySortingDropDownlist[1].innerText;
                 prioritySortingDropDown.style.visibility = "hidden";
                 prioritySortingDropDown.style.opacity = "0";
+
+                activeFilters.priority = "low";
+                applyAllFilters();
             });
         }
-        if(prioritySortingDropDownlist[2]){
+        if (prioritySortingDropDownlist[2]) {
             prioritySortingDropDownlist[2].addEventListener("click", () => {
                 prioritySortingDropDownlist[2].classList.add("selected");
                 prioritySortingDropDownlist[1].classList.remove("selected");
@@ -613,9 +696,12 @@ prioritySortingBtn.addEventListener("click", () => {
                 changePriorityPara.textContent = prioritySortingDropDownlist[2].innerText;
                 prioritySortingDropDown.style.visibility = "hidden";
                 prioritySortingDropDown.style.opacity = "0";
+
+                activeFilters.priority = "medium";
+                applyAllFilters();
             });
         }
-        if(prioritySortingDropDownlist[3]){
+        if (prioritySortingDropDownlist[3]) {
             prioritySortingDropDownlist[3].addEventListener("click", () => {
                 prioritySortingDropDownlist[3].classList.add("selected");
                 prioritySortingDropDownlist[2].classList.remove("selected");
@@ -624,11 +710,14 @@ prioritySortingBtn.addEventListener("click", () => {
                 changePriorityPara.textContent = prioritySortingDropDownlist[3].innerText;
                 prioritySortingDropDown.style.visibility = "hidden";
                 prioritySortingDropDown.style.opacity = "0";
+
+                activeFilters.priority = "high";
+                applyAllFilters();
             });
         }
 
     }
-    else{
+    else {
         prioritySortingDropDown.style.visibility = "hidden";
         prioritySortingDropDown.style.opacity = "0";
 
@@ -637,11 +726,11 @@ prioritySortingBtn.addEventListener("click", () => {
 
 
 categorySortingBtn.addEventListener("click", () => {
-    if (categorySortingDropDown.style.visibility !== "visible") {   
+    if (categorySortingDropDown.style.visibility !== "visible") {
         categorySortingDropDown.style.visibility = "visible";
         categorySortingDropDown.style.opacity = "1";
 
-        if(categorySortingDropDownlist[0]){
+        if (categorySortingDropDownlist[0]) {
             categorySortingDropDownlist[0].addEventListener("click", () => {
                 categorySortingDropDownlist[0].classList.add("selected");
                 categorySortingDropDownlist[1].classList.remove("selected");
@@ -650,11 +739,14 @@ categorySortingBtn.addEventListener("click", () => {
                 categorySortingDropDownlist[4].classList.remove("selected");
                 changeCategoryPara.textContent = categorySortingDropDownlist[0].innerText;
                 categorySortingDropDown.style.visibility = "hidden";
-                categorySortingDropDown.style.opacity = "0";               
+                categorySortingDropDown.style.opacity = "0";
 
+
+                activeFilters.category = "all";
+                applyAllFilters();
             });
         }
-        if(categorySortingDropDownlist[1]){
+        if (categorySortingDropDownlist[1]) {
             categorySortingDropDownlist[1].addEventListener("click", () => {
                 categorySortingDropDownlist[1].classList.add("selected");
                 categorySortingDropDownlist[0].classList.remove("selected");
@@ -664,9 +756,12 @@ categorySortingBtn.addEventListener("click", () => {
                 changeCategoryPara.textContent = categorySortingDropDownlist[1].innerText;
                 categorySortingDropDown.style.visibility = "hidden";
                 categorySortingDropDown.style.opacity = "0";
+
+                activeFilters.category = "work";
+                applyAllFilters();
             });
         }
-        if(categorySortingDropDownlist[2]){
+        if (categorySortingDropDownlist[2]) {
             categorySortingDropDownlist[2].addEventListener("click", () => {
                 categorySortingDropDownlist[2].classList.add("selected");
                 categorySortingDropDownlist[1].classList.remove("selected");
@@ -676,9 +771,12 @@ categorySortingBtn.addEventListener("click", () => {
                 changeCategoryPara.textContent = categorySortingDropDownlist[2].innerText;
                 categorySortingDropDown.style.visibility = "hidden";
                 categorySortingDropDown.style.opacity = "0";
+
+                activeFilters.category = 'personal';
+                applyAllFilters();
             });
         }
-        if(categorySortingDropDownlist[3]){
+        if (categorySortingDropDownlist[3]) {
             categorySortingDropDownlist[3].addEventListener("click", () => {
                 categorySortingDropDownlist[4].classList.remove("selected");
                 categorySortingDropDownlist[3].classList.add("selected");
@@ -688,9 +786,12 @@ categorySortingBtn.addEventListener("click", () => {
                 changeCategoryPara.textContent = categorySortingDropDownlist[3].innerText;
                 categorySortingDropDown.style.visibility = "hidden";
                 categorySortingDropDown.style.opacity = "0";
+
+                activeFilters.category = 'shopping';
+                applyAllFilters();
             });
         }
-        if(categorySortingDropDownlist[4]){
+        if (categorySortingDropDownlist[4]) {
             categorySortingDropDownlist[4].addEventListener("click", () => {
                 categorySortingDropDownlist[4].classList.add("selected");
                 categorySortingDropDownlist[3].classList.remove("selected");
@@ -700,11 +801,14 @@ categorySortingBtn.addEventListener("click", () => {
                 changeCategoryPara.textContent = categorySortingDropDownlist[4].innerText;
                 categorySortingDropDown.style.visibility = "hidden";
                 categorySortingDropDown.style.opacity = "0";
+
+                activeFilters.category = 'health';
+                applyAllFilters();
             });
         }
 
     }
-    else{
+    else {
         categorySortingDropDown.style.visibility = "hidden";
         categorySortingDropDown.style.opacity = "0";
 
@@ -716,12 +820,12 @@ document.addEventListener('click', (e) => {
         taskSortingDropDown.style.visibility = 'hidden';
         taskSortingDropDown.style.opacity = '0';
     }
-    
+
     if (!prioritySortingBtn.contains(e.target) && !prioritySortingDropDown.contains(e.target)) {
         prioritySortingDropDown.style.visibility = 'hidden';
         prioritySortingDropDown.style.opacity = '0';
     }
-    
+
     if (!categorySortingBtn.contains(e.target) && !categorySortingDropDown.contains(e.target)) {
         categorySortingDropDown.style.visibility = 'hidden';
         categorySortingDropDown.style.opacity = '0';
@@ -733,22 +837,114 @@ document.addEventListener('click', (e) => {
         if (!addNewTaskSection.contains(e.target) && !addTaskBtn.contains(e.target)) {
             addNewTaskSection.style.visibility = 'hidden';
             addNewTaskSection.style.opacity = '0';
+
+            setTimeout(() => {
+                const taskTitle = document.querySelector('#taskTitleInput');
+                const taskDesc = document.querySelector('#taskDescriptionInput');
+                const taskPriority = document.querySelector('#priorityInput');
+                const taskCategory = document.querySelector('#categoryInput');
+                const taskDate = document.querySelector('#dueDate');
+
+                if (taskTitle) taskTitle.value = "";
+                if (taskDesc) taskDesc.value = "";
+                if (taskPriority) taskPriority.value = "medium";
+                if (taskCategory) taskCategory.value = "personal";
+                if (taskDate) taskDate.value = "";
+
+            }, 100);
         }
     }
 
     if (editTaskSection.style.visibility === 'visible') {
         const editBtns = document.querySelectorAll('.resultContent .header button:first-child');
         let clickedEditBtn = false;
-        
+
         editBtns.forEach(btn => {
             if (btn.contains(e.target)) {
                 clickedEditBtn = true;
             }
         });
-        
+
         if (!editTaskSection.contains(e.target) && !clickedEditBtn) {
             editTaskSection.style.visibility = 'hidden';
             editTaskSection.style.opacity = '0';
+
+            setTimeout(() => {
+                const taskTitle2 = document.querySelector('#taskTitleInput2');
+                const taskDesc2 = document.querySelector('#taskDescriptionInput2');
+                const taskPriority2 = document.querySelector('#priorityInput2');
+                const taskCategory2 = document.querySelector('#categoryInput2');
+                const taskDate2 = document.querySelector('#dueDate2');
+
+                if (taskTitle2) taskTitle2.value = "";
+                if (taskDesc2) taskDesc2.value = "";
+                if (taskPriority2) taskPriority2.value = "medium";
+                if (taskCategory2) taskCategory2.value = "personal";
+                if (taskDate2) taskDate2.value = "";
+
+            }, 100);
+
         }
     }
 });
+
+function applyAllFilters() {
+    const allCard = resultContainer.querySelectorAll(".resultItemBox");
+    let visibleCount = 0;
+
+    allCard.forEach(card => {
+        let shouldShow = true;
+
+        const taskCheckbox = card.querySelector(".checkBox");
+        const taskName = card.querySelector(".resultContent .header .taskName").textContent.toLowerCase();
+        const savedpriority = card.querySelector(".resultContent .taskTags ul li:first-child")?.textContent.trim();
+        const savedCategory = card.querySelector(".resultContent .taskTags ul li:nth-child(2)")?.textContent.trim();
+
+        // Checking Task Filters
+        if (activeFilters.taskStatus === "active") {
+            if (taskCheckbox && taskCheckbox.classList.contains("done")) {
+                shouldShow = false;
+            }
+        }
+        else if (activeFilters.taskStatus === 'completed') {
+            if (!taskCheckbox || !taskCheckbox.classList.contains("done")) {
+                shouldShow = false;
+            }
+        }
+
+        // Checking Priority Filters
+        if (activeFilters.priority !== "all") {
+            if (savedpriority !== activeFilters.priority) {
+                shouldShow = false;
+            }
+        }
+
+        // Checking Category Filters
+        if (activeFilters.category !== "all") {
+            if (savedCategory !== activeFilters.category) {
+                shouldShow = false;
+            }
+        }
+
+        // Checking Search Filters
+        if (activeFilters.searchText !== "") {
+            if (!taskName.includes(activeFilters.searchText)) {
+                shouldShow = false;
+            }
+        }
+
+        if (shouldShow) {
+            card.style.display = 'flex';
+            visibleCount++;
+        }
+        else {
+            card.style.display = 'none';
+        }
+    });
+
+    if (visibleCount > 0) {
+        emptyTask.style.visibility = 'hidden';
+    } else {
+        emptyTask.style.visibility = 'visible';
+    }
+}
