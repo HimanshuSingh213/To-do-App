@@ -1,0 +1,172 @@
+:root {
+    --Filters-background-dark-dark: #08060654;
+
+}
+
+html.dark .page-container {
+    background-image: linear-gradient(to bottom right, #101828, #101828, #101828);
+}
+
+html.dark nav .navRight .themeChanger {
+    background-color: #262626;
+}
+
+html.dark .filters {
+    background-color: #1e2939;
+}
+
+html.dark .navRight .addTask {
+    color: #171717;
+}
+
+html.dark nav .navRight .addTask svg {
+    stroke: #171717;
+}
+
+html.dark .filters .search input {
+    background-color: var(--Filters-background-dark);
+}
+
+html.dark .filters .sortButtons .sortItems {
+    background-color: var(--Filters-background-dark);
+    border-radius: var(--Filters-border-radius);
+    border: var(--Filters-border);
+    padding: var(--filterItem-padding);
+    height: var(--FilterItem-height);
+}
+
+html.dark .taskSorting ul li.selected{
+    background-color: var(--Filters-background-dark);
+}
+
+html.dark .taskSorting ul li:hover{
+    background-color: var(--Filters-background-dark);
+}
+
+html.dark .prioritySorting ul li.selected{
+    background-color: var(--Filters-background-dark);
+}
+
+html.dark .prioritySorting ul li:hover{
+    background-color: var(--Filters-background-dark);
+}
+
+html.dark .categorySorting ul li.selected{
+    background-color: var(--Filters-background-dark);
+}
+
+html.dark .categorySorting ul li:hover{
+    background-color: var(--Filters-background-dark);
+}
+
+html.dark .addNewTask .taskTitle input {
+    width: 100%;
+    height: 36px;
+    padding: 4px 12px;
+    border: var(--Filters-border);
+    border-radius: 8px;
+    font-size: 14px;
+    margin-top: 10px;
+    background-color: var(--Filters-background-dark);
+    display: flex;
+    align-items: center;
+}
+
+html.dark .addNewTask .taskDescription textarea {
+    width: 100%;
+    height: 64px;
+    padding: 4px 12px;
+    border: var(--Filters-border);
+    border-radius: 8px;
+    resize: none;
+    font-size: 14px;
+    margin-top: 10px;
+    background-color: var(--Filters-background-dark);
+    display: flex;
+    align-items: center;
+}
+
+html.dark .addNewTask .inputElements .priorityInput select {
+    margin-top: 10px;
+    border: none;
+    background-color: var(--Filters-background-dark);
+    padding: 8px;
+    width: 100%;
+    border-radius: 8px;
+}
+
+html.dark .addNewTask .inputElements .categoryInput select {
+    margin-top: 10px;
+    border: none;
+    background-color: var(--Filters-background-dark);
+    padding: 8px;
+    width: 100%;
+    border-radius: 8px;
+}
+
+html.dark .addNewTask .dueDate input {
+    height: 36px;
+    padding: 4px 12px;
+    border: var(--Filters-border);
+    border-radius: 8px;
+    font-size: 14px;
+    margin-top: 12px;
+    padding-right: 70%;
+    background-color: var(--Filters-background-dark);
+}
+
+html.dark .editTask .taskTitle2 input {
+    width: 100%;
+    height: 36px;
+    padding: 4px 12px;
+    border: var(--Filters-border);
+    border-radius: 8px;
+    font-size: 14px;
+    margin-top: 10px;
+    background-color: var(--Filters-background-dark);
+    display: flex;
+    align-items: center;
+}
+
+html.dark .editTask .taskDescription2 textarea {
+    width: 100%;
+    height: 64px;
+    padding: 4px 12px;
+    border: var(--Filters-border);
+    border-radius: 8px;
+    resize: none;
+    font-size: 14px;
+    margin-top: 10px;
+    background-color: var(--Filters-background-dark);
+    display: flex;
+    align-items: center;
+}
+
+html.dark .editTask .inputElements2 .priorityInput2 select {
+    margin-top: 10px;
+    border: none;
+    background-color: var(--Filters-background-dark);
+    padding: 8px;
+    width: 100%;
+    border-radius: 8px;
+}
+
+html.dark .editTask .inputElements2 .categoryInput2 select {
+    margin-top: 10px;
+    border: none;
+    background-color: var(--Filters-background-dark);
+    padding: 8px;
+    width: 100%;
+    border-radius: 8px;
+}
+
+html.dark .editTask .dueDate2 input {
+    height: 36px;
+    padding: 4px 12px;
+    border: var(--Filters-border);
+    border-radius: 8px;
+    font-size: 14px;
+    margin-top: 12px;
+    padding-right: 70%;
+    background-color: var(--Filters-background-dark);
+}

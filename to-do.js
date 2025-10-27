@@ -39,6 +39,7 @@ const changePriorityPara = document.querySelector(".filters .sortButtons .priori
 const changeCategoryPara = document.querySelector(".filters .sortButtons .categorySort #category");
 const taskAdded = document.querySelector(".taskAdded");
 const taskDeleted = document.querySelector(".taskDeleted");
+const clearBtn = document.querySelector(".filters .clear");
 
 let activeFilters = {
     taskStatus: "all",
@@ -289,6 +290,8 @@ createNewTask.addEventListener("click", () => {
     else {
         createTaskCard();
         taskTitleInput.classList.remove('error')
+
+        saveTasks();
         addNewTaskSection.style.visibility = "hidden";
         addNewTaskSection.style.opacity = "0";
 
@@ -315,7 +318,7 @@ resultContainer.addEventListener('click', (e) => {
 
         setTimeout(() => {
             cardToDelete.remove();
-
+            saveTasks();
             const newPositions = cardsBelow.map(card => card.getBoundingClientRect().top);
 
             cardsBelow.forEach((card, index) => {
@@ -343,7 +346,11 @@ resultContainer.addEventListener('click', (e) => {
 
         if (sum === 0) {
             completionRate.textContent = "0%";
-        } else {
+            setTimeout(() => {
+                emptyTask.style.visibility = "visible";
+            }, 200);
+        }
+        else {
             const percentage = (completed / sum) * 100;
 
             if (percentage === 0 || percentage === 100) {
@@ -513,6 +520,8 @@ updateTask.addEventListener("click", () => {
 
         delete addNewTaskSection.dataset.editingCard;
 
+        saveTasks();
+
         editTaskSection.style.visibility = "hidden";
         editTaskSection.style.opacity = "0";
 
@@ -589,12 +598,24 @@ resultContainer.addEventListener('click', (e) => {
             }
         }
 
-
+        saveTasks();
     }
 });
 
 searchInput.addEventListener("input", (e) => {
     activeFilters.searchText = e.target.value.toLowerCase().trim();
+    if (e.target.value.toLowerCase().trim() !== "") {
+        clearBtn.style.visibility = "visible";
+        clearBtn.style.opacity = "1";
+        clearBtn.style.transform = "translateX(0)"
+    }
+
+    if (e.target.value.toLowerCase().trim() === "") {
+        clearBtn.style.visibility = "";
+        clearBtn.style.opacity = "";
+        clearBtn.style.transform = "";
+    }
+
     applyAllFilters();
 });
 
@@ -612,6 +633,11 @@ taskSortingBtn.addEventListener("click", () => {
                 taskSortingDropDown.style.visibility = "hidden";
                 taskSortingDropDown.style.opacity = "0";
 
+                if (taskSortingBtn.innerText === "All Tasks" && prioritySortingBtn.innerText === "All Priority" && categorySortingBtn.innerText === "All Categories" && searchInput.value === "") {
+                    clearBtn.style.visibility = "";
+                    clearBtn.style.opacity = "";
+                    clearBtn.style.transform = "";
+                }
 
                 activeFilters.taskStatus = "all";
                 applyAllFilters();
@@ -626,6 +652,9 @@ taskSortingBtn.addEventListener("click", () => {
                 changeTaskPara.textContent = taskSortingDropDownlist[1].innerText;
                 taskSortingDropDown.style.visibility = "hidden";
                 taskSortingDropDown.style.opacity = "0";
+                clearBtn.style.visibility = "visible";
+                clearBtn.style.opacity = "1";
+                clearBtn.style.transform = "translateX(0)"
 
                 activeFilters.taskStatus = "active";
                 applyAllFilters();
@@ -639,6 +668,9 @@ taskSortingBtn.addEventListener("click", () => {
                 changeTaskPara.textContent = taskSortingDropDownlist[2].innerText;
                 taskSortingDropDown.style.visibility = "hidden";
                 taskSortingDropDown.style.opacity = "0";
+                clearBtn.style.visibility = "visible";
+                clearBtn.style.opacity = "1";
+                clearBtn.style.transform = "translateX(0)"
 
                 activeFilters.taskStatus = "completed";
                 applyAllFilters();
@@ -668,6 +700,12 @@ prioritySortingBtn.addEventListener("click", () => {
                 prioritySortingDropDown.style.visibility = "hidden";
                 prioritySortingDropDown.style.opacity = "0";
 
+                if (taskSortingBtn.innerText === "All Tasks" && prioritySortingBtn.innerText === "All Priority" && categorySortingBtn.innerText === "All Categories" && searchInput.value === "") {
+                    clearBtn.style.visibility = "";
+                    clearBtn.style.opacity = "";
+                    clearBtn.style.transform = "";
+                }
+
                 activeFilters.priority = "all";
                 applyAllFilters();
 
@@ -682,6 +720,9 @@ prioritySortingBtn.addEventListener("click", () => {
                 changePriorityPara.textContent = prioritySortingDropDownlist[1].innerText;
                 prioritySortingDropDown.style.visibility = "hidden";
                 prioritySortingDropDown.style.opacity = "0";
+                clearBtn.style.visibility = "visible";
+                clearBtn.style.opacity = "1";
+                clearBtn.style.transform = "translateX(0)"
 
                 activeFilters.priority = "low";
                 applyAllFilters();
@@ -696,6 +737,9 @@ prioritySortingBtn.addEventListener("click", () => {
                 changePriorityPara.textContent = prioritySortingDropDownlist[2].innerText;
                 prioritySortingDropDown.style.visibility = "hidden";
                 prioritySortingDropDown.style.opacity = "0";
+                clearBtn.style.visibility = "visible";
+                clearBtn.style.opacity = "1";
+                clearBtn.style.transform = "translateX(0)"
 
                 activeFilters.priority = "medium";
                 applyAllFilters();
@@ -710,6 +754,9 @@ prioritySortingBtn.addEventListener("click", () => {
                 changePriorityPara.textContent = prioritySortingDropDownlist[3].innerText;
                 prioritySortingDropDown.style.visibility = "hidden";
                 prioritySortingDropDown.style.opacity = "0";
+                clearBtn.style.visibility = "visible";
+                clearBtn.style.opacity = "1";
+                clearBtn.style.transform = "translateX(0)"
 
                 activeFilters.priority = "high";
                 applyAllFilters();
@@ -741,6 +788,12 @@ categorySortingBtn.addEventListener("click", () => {
                 categorySortingDropDown.style.visibility = "hidden";
                 categorySortingDropDown.style.opacity = "0";
 
+                if (taskSortingBtn.innerText === "All Tasks" && prioritySortingBtn.innerText === "All Priority" && categorySortingBtn.innerText === "All Categories" && searchInput.value === "") {
+                    clearBtn.style.visibility = "";
+                    clearBtn.style.opacity = "";
+                    clearBtn.style.transform = "";
+                }
+
 
                 activeFilters.category = "all";
                 applyAllFilters();
@@ -756,6 +809,9 @@ categorySortingBtn.addEventListener("click", () => {
                 changeCategoryPara.textContent = categorySortingDropDownlist[1].innerText;
                 categorySortingDropDown.style.visibility = "hidden";
                 categorySortingDropDown.style.opacity = "0";
+                clearBtn.style.visibility = "visible";
+                clearBtn.style.opacity = "1";
+                clearBtn.style.transform = "translateX(0)"
 
                 activeFilters.category = "work";
                 applyAllFilters();
@@ -771,6 +827,9 @@ categorySortingBtn.addEventListener("click", () => {
                 changeCategoryPara.textContent = categorySortingDropDownlist[2].innerText;
                 categorySortingDropDown.style.visibility = "hidden";
                 categorySortingDropDown.style.opacity = "0";
+                clearBtn.style.visibility = "visible";
+                clearBtn.style.opacity = "1";
+                clearBtn.style.transform = "translateX(0)"
 
                 activeFilters.category = 'personal';
                 applyAllFilters();
@@ -786,6 +845,9 @@ categorySortingBtn.addEventListener("click", () => {
                 changeCategoryPara.textContent = categorySortingDropDownlist[3].innerText;
                 categorySortingDropDown.style.visibility = "hidden";
                 categorySortingDropDown.style.opacity = "0";
+                clearBtn.style.visibility = "visible";
+                clearBtn.style.opacity = "1";
+                clearBtn.style.transform = "translateX(0)"
 
                 activeFilters.category = 'shopping';
                 applyAllFilters();
@@ -801,6 +863,9 @@ categorySortingBtn.addEventListener("click", () => {
                 changeCategoryPara.textContent = categorySortingDropDownlist[4].innerText;
                 categorySortingDropDown.style.visibility = "hidden";
                 categorySortingDropDown.style.opacity = "0";
+                clearBtn.style.visibility = "visible";
+                clearBtn.style.opacity = "1";
+                clearBtn.style.transform = "translateX(0)"
 
                 activeFilters.category = 'health';
                 applyAllFilters();
@@ -948,3 +1013,155 @@ function applyAllFilters() {
         emptyTask.style.visibility = 'visible';
     }
 }
+
+function saveTasks() {
+    const tasks = [];
+    const allCards = resultContainer.querySelectorAll(".resultItemBox");
+
+    allCards.forEach(card => {
+        const dueDateElement = card.querySelector(".resultContent .taskTags ul li:nth-child(3)");
+        const dueDateText = dueDateElement?.textContent.trim() || "";
+
+        const taskObj = {
+            title: card.querySelector(".resultContent .header .taskName").textContent,
+            description: card.querySelector(".resultContent .description").textContent,
+            priority: card.querySelector(".resultContent .taskTags ul li:first-child").textContent.trim(),
+            category: card.querySelector(".resultContent .taskTags ul li:nth-child(2)").textContent.trim(),
+            dueDate: (dueDateElement && dueDateElement.style.display !== "none") ? dueDateText : "",
+            isCompleted: card.querySelector(".checkBox").classList.contains("done")
+        };
+        tasks.push(taskObj);
+    });
+
+    localStorage.setItem("todoTasks", JSON.stringify(tasks));
+}
+
+function loadTasks() {
+    const savedTasks = localStorage.getItem("todoTasks");
+
+    if (savedTasks) {
+        const tasks = JSON.parse(savedTasks);
+        tasks.forEach(task => {
+            createTaskFromData(task);
+        });
+    }
+}
+
+function createTaskFromData(taskData) {
+    const clone = cardTemplate.content.cloneNode(true);
+
+    clone.querySelector(".resultContent .header .taskName").textContent = taskData.title;
+    clone.querySelector(".resultContent .description").textContent = taskData.description;
+
+    const taskTags = clone.querySelectorAll(".taskTags ul li");
+    taskTags[0].textContent = taskData.priority;
+    taskTags[1].textContent = taskData.category;
+
+    if (taskData.dueDate) {
+        taskTags[2].style.display = "flex";
+        const svgs = taskTags[2].querySelectorAll('svg');
+        taskTags[2].textContent = taskData.dueDate;
+        svgs.forEach(svg => taskTags[2].insertBefore(svg, taskTags[2].firstChild));
+    } else {
+        taskTags[2].style.display = "none";
+    }
+
+    const taskTagsDiv = clone.querySelector(".taskTags");
+    taskTagsDiv.classList.add(taskData.priority);
+    taskTagsDiv.classList.add(taskData.category);
+
+    if (taskData.dueDate) {
+        const parts = taskData.dueDate.split('-');
+        const year = parseInt(parts[0], 10);
+        const month = parseInt(parts[1], 10) - 1;
+        const day = parseInt(parts[2], 10);
+        const taskDate = new Date(year, month, day);
+        const today = new Date();
+        taskDate.setHours(0, 0, 0, 0);
+        today.setHours(0, 0, 0, 0);
+
+        if (taskDate < today || taskDate.getTime() === today.getTime()) {
+            taskTagsDiv.classList.add('overdue');
+        }
+    }
+
+    const card = clone.querySelector(".resultItemBox");
+
+    if (taskData.priority === "low") {
+        card.style.borderLeftColor = "#008236";
+    } else if (taskData.priority === "medium") {
+        card.style.borderLeftColor = "#e68619";
+    } else if (taskData.priority === "high") {
+        card.style.borderLeftColor = "#e7000b";
+    }
+
+    if (taskData.isCompleted) {
+        const checkbox = clone.querySelector(".checkBox");
+        checkbox.classList.add("done");
+        const taskName = clone.querySelector(".resultContent .header .taskName");
+        const description = clone.querySelector(".resultContent .description");
+        taskName.style.textDecoration = "line-through";
+        taskName.style.opacity = "0.8";
+        description.style.textDecoration = "line-through";
+        description.style.opacity = "0.8";
+        completed++;
+    } else {
+        if (active === undefined) active = 0;
+        active++;
+    }
+
+    sum++;
+
+    resultContainer.appendChild(clone);
+
+    const insertedCard = resultContainer.lastElementChild;
+    setTimeout(() => {
+        insertedCard.classList.add('show');
+    }, 30);
+
+    totalTask.textContent = sum;
+    activeTask.textContent = active;
+    completedTask.textContent = completed;
+
+    if (sum === 0) {
+        completionRate.textContent = "0%";
+    } else {
+        const percentage = (completed / sum) * 100;
+        if (percentage === 0 || percentage === 100) {
+            completionRate.textContent = percentage + "%";
+        } else {
+            completionRate.textContent = percentage.toFixed(1) + "%";
+        }
+    }
+
+    if (sum > 0) {
+        emptyTask.style.visibility = "hidden";
+    }
+}
+
+
+window.addEventListener("DOMContentLoaded", () => {
+    loadTasks();
+});
+
+clearBtn.addEventListener("click", () => {
+    changeCategoryPara.innerText = "All Categories";
+    changePriorityPara.innerText = "All Priority";
+    changeTaskPara.innerText = "All Tasks";
+    taskSortingDropDownlist[0].classList.add("selected");
+    taskSortingDropDownlist[1].classList.remove("selected");
+    taskSortingDropDownlist[2].classList.remove("selected");
+    prioritySortingDropDownlist[0].classList.add("selected");
+    prioritySortingDropDownlist[1].classList.remove("selected");
+    prioritySortingDropDownlist[2].classList.remove("selected");
+    prioritySortingDropDownlist[3].classList.remove("selected");
+    categorySortingDropDownlist[0].classList.add("selected");
+    categorySortingDropDownlist[1].classList.remove("selected");
+    categorySortingDropDownlist[2].classList.remove("selected");
+    categorySortingDropDownlist[3].classList.remove("selected");
+    categorySortingDropDownlist[4].classList.remove("selected");
+    searchInput.value = "";
+    clearBtn.style.visibility = "";
+    clearBtn.style.opacity = "";
+    clearBtn.style.transform = "";
+})
