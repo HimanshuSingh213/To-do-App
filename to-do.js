@@ -1167,4 +1167,9 @@ clearBtn.addEventListener("click", () => {
     clearBtn.style.visibility = "";
     clearBtn.style.opacity = "";
     clearBtn.style.transform = "";
+    activeFilters.taskStatus = "all";
+    activeFilters.priority = "all";
+    activeFilters.category = "all";
+    activeFilters.searchText = "";
+    applyAllFilters();
 });
