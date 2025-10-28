@@ -82,7 +82,6 @@
         grid-template-columns: 1fr 1fr 1frr;
         gap: 5px;
         justify-content: center;
-        /* align-items: center; */
     }
 
     .filters .clear {
@@ -142,8 +141,10 @@
 
 
     .resultItemBox .resultContent .header {
-        height: 25px;
-        margin-bottom: 0px;
+        height: auto; 
+        min-height: 25px; 
+        margin-bottom: 5px;
+        align-items: center;
     }
 
     .resultItemBox .resultContent .header .taskName {
@@ -161,9 +162,11 @@
     }
 
     .resultContainer .description {
-        height: 20px;
+        height: 40px;
         font-size: 12px;
-        margin-bottom: 30px;
+        margin-bottom: 10px;
+        width: 100%;
+        overflow-wrap: normal;
     }
 
     .resultContainer .taskTags ul {
@@ -229,18 +232,24 @@
         right: 20%;
     }
 
+    .resultContainer .description {
+        height: auto; 
+        min-height: 40px; 
+        font-size: 12px;
+        margin-bottom: 10px;
+        width: 100%;
+        display: flex;
+        word-wrap: break-word;
+        overflow-wrap: break-word; 
+        line-height: 1.4; 
+    }
+
     .resultItemBox .resultContent .header .taskName {
+        height: auto;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         max-width: calc(100vw - 150px);
-    }
-
-    .resultContainer .description {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 100%;
     }
 
 }
