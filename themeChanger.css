@@ -1,10 +1,14 @@
 :root {
-    --Filters-background-dark-dark: #08060654;
+    --Filters-background-dark: #26262676;
 
 }
 
 html.dark .page-container {
     background-image: linear-gradient(to bottom right, #101828, #101828, #101828);
+}
+
+html.dark .contentBox nav .navLeft p {
+    color: #99a1af;
 }
 
 html.dark nav .navRight .themeChanger {
@@ -23,123 +27,85 @@ html.dark nav .navRight .addTask svg {
     stroke: #171717;
 }
 
+html.dark .contentBox .functionBoxes .functionBox {
+    background-color: #1e2939;
+}
+
+html.dark .contentBox .functionBoxes .functionBox h3 {
+    color: #99a1af;
+}
+
+html.dark .contentBox .functionBoxes .functionBox p {
+    color: #fff;
+}
+
 html.dark .filters .search input {
     background-color: var(--Filters-background-dark);
+    color: white;
+}
+
+html.dark #search::placeholder {
+    color: rgb(141, 148, 153);
+}
+
+html.dark .filters .search input:focus {
+    outline: 1px solid rgb(104, 104, 104);
 }
 
 html.dark .filters .sortButtons .sortItems {
     background-color: var(--Filters-background-dark);
-    border-radius: var(--Filters-border-radius);
-    border: var(--Filters-border);
-    padding: var(--filterItem-padding);
-    height: var(--FilterItem-height);
 }
 
-html.dark .taskSorting ul li.selected{
+html.dark .filters .sortButtons .selectedFilter p {
+    color: rgb(216, 216, 216);
+}
+
+html.dark .taskSorting ul li.selected {
     background-color: var(--Filters-background-dark);
 }
 
-html.dark .taskSorting ul li:hover{
+html.dark .taskSorting ul li:hover {
     background-color: var(--Filters-background-dark);
 }
 
-html.dark .prioritySorting ul li.selected{
+html.dark .prioritySorting ul li.selected {
     background-color: var(--Filters-background-dark);
 }
 
-html.dark .prioritySorting ul li:hover{
+html.dark .prioritySorting ul li:hover {
     background-color: var(--Filters-background-dark);
 }
 
-html.dark .categorySorting ul li.selected{
+html.dark .categorySorting ul li.selected {
     background-color: var(--Filters-background-dark);
 }
 
-html.dark .categorySorting ul li:hover{
+html.dark .categorySorting ul li:hover {
     background-color: var(--Filters-background-dark);
 }
 
-html.dark .addNewTask .taskTitle input {
-    width: 100%;
-    height: 36px;
-    padding: 4px 12px;
-    border: var(--Filters-border);
-    border-radius: 8px;
-    font-size: 14px;
-    margin-top: 10px;
-    background-color: var(--Filters-background-dark);
-    display: flex;
-    align-items: center;
+html.dark .filters .clear svg {
+    filter: invert(100%);
 }
 
-html.dark .addNewTask .taskDescription textarea {
-    width: 100%;
-    height: 64px;
-    padding: 4px 12px;
-    border: var(--Filters-border);
-    border-radius: 8px;
-    resize: none;
-    font-size: 14px;
-    margin-top: 10px;
-    background-color: var(--Filters-background-dark);
-    display: flex;
-    align-items: center;
+html.dark .resultContainer .emptyTask svg {
+    background-image: linear-gradient(to bottom right in oklab, #0b4f4b36, #104e6434);
 }
 
-html.dark .addNewTask .inputElements .priorityInput select {
-    margin-top: 10px;
-    border: none;
-    background-color: var(--Filters-background-dark);
-    padding: 8px;
-    width: 100%;
-    border-radius: 8px;
+html.dark .resultContainer .emptyTask h3 {
+    color: #fff;
 }
 
-html.dark .addNewTask .inputElements .categoryInput select {
-    margin-top: 10px;
-    border: none;
-    background-color: var(--Filters-background-dark);
-    padding: 8px;
-    width: 100%;
-    border-radius: 8px;
-}
-
-html.dark .addNewTask .dueDate input {
-    height: 36px;
-    padding: 4px 12px;
-    border: var(--Filters-border);
-    border-radius: 8px;
-    font-size: 14px;
-    margin-top: 12px;
-    padding-right: 70%;
-    background-color: var(--Filters-background-dark);
+html.dark .resultContainer .emptyTask p {
+    color: #99a1af;
 }
 
 html.dark .editTask .taskTitle2 input {
-    width: 100%;
-    height: 36px;
-    padding: 4px 12px;
-    border: var(--Filters-border);
-    border-radius: 8px;
-    font-size: 14px;
-    margin-top: 10px;
     background-color: var(--Filters-background-dark);
-    display: flex;
-    align-items: center;
 }
 
 html.dark .editTask .taskDescription2 textarea {
-    width: 100%;
-    height: 64px;
-    padding: 4px 12px;
-    border: var(--Filters-border);
-    border-radius: 8px;
-    resize: none;
-    font-size: 14px;
-    margin-top: 10px;
     background-color: var(--Filters-background-dark);
-    display: flex;
-    align-items: center;
 }
 
 html.dark .editTask .inputElements2 .priorityInput2 select {
@@ -169,4 +135,359 @@ html.dark .editTask .dueDate2 input {
     margin-top: 12px;
     padding-right: 70%;
     background-color: var(--Filters-background-dark);
+}
+
+html.dark .resultItemBox {
+    background-color: #1e2939;
+    border-right: 2px solid rgb(43, 43, 43);
+    border-top: 2px solid rgb(43, 43, 43);
+    border-bottom: 2px solid rgb(43, 43, 43);
+}
+
+html.dark .checkBox button {
+    background-color: #262626 !important;
+}
+
+html.dark .resultItemBox .resultContent .header .taskName {
+    color: #e6e6e6;
+}
+
+html.dark .resultItemBox .resultContent .header .editOptions button {
+    background-color: transparent;
+}
+
+html.dark .resultItemBox .resultContent .header .editOptions button:first-child {
+    filter: invert(1);
+}
+
+html.dark .resultItemBox .resultContent .header .editOptions button:last-child:hover {
+    background-color: #e7000c1d;
+}
+
+html.dark .resultContainer .description {
+    color: #99a1af;
+}
+
+html.dark .resultContainer .taskTags.medium ul li:nth-child(1) {
+    color: #fdc700;
+    background-color: #733f0a61;
+}
+
+html.dark .resultContainer .taskTags.low ul li:nth-child(1) {
+    color: #05df72;
+    background-color: #0d542b57;
+}
+
+html.dark .resultContainer .taskTags.high ul li:nth-child(1) {
+    color: #ff6467;
+    background-color: #82181a56;
+}
+
+html.dark .resultContainer .taskTags.personal ul li:nth-child(2) {
+    color: #c27aff;
+    background-color: #58168b55;
+}
+
+html.dark .resultContainer .taskTags.work ul li:nth-child(2) {
+    color: #51a2ff;
+    background-color: #1c388e63;
+}
+
+html.dark .resultContainer .taskTags.shopping ul li:nth-child(2) {
+    color: #fb64b6;
+    background-color: #8610434e;
+}
+
+html.dark .resultContainer .taskTags.health ul li:nth-child(2) {
+    color: #00d492;
+    background-color: #004f3b52;
+}
+
+html.dark .resultContainer .taskTags ul li:last-child {
+    background-color: transparent;
+    border: 1px solid rgb(29, 29, 29);
+    color: #e1e1e1;
+}
+
+.resultContainer .taskTags.overdue ul li:last-child svg {
+    stroke: #ff6467 !important;
+}
+
+.resultContainer .taskTags.overdue ul li:last-child {
+    border-color: #ff6467 !important;
+    color: #ff6467 !important;
+}
+
+html.dark .addNewTask {
+    background-color: #0a0a0a;
+    border: 0.5px solid rgb(74, 74, 74);
+}
+
+html.dark .addNewTask .taskTitle label {
+    filter: invert(1);
+}
+
+html.dark .addNewTask .taskTitle input {
+    color: whitesmoke;
+    border: 1px solid rgb(70, 70, 70);
+}
+
+html.dark .addNewTask .taskTitle input:focus {
+    outline: 1px solid rgb(163, 163, 163);
+}
+
+html.dark .addNewTask .heading p {
+    color: #99a1af;
+}
+
+html.dark .addNewTask .heading h2 {
+    color: #fff;
+}
+
+html.dark .addNewTask .taskTitle input {
+    background-color: var(--Filters-background-dark);
+}
+
+html.dark .addNewTask .taskDescription textarea {
+    background-color: var(--Filters-background-dark);
+    color: whitesmoke;
+    border: 1px solid rgb(70, 70, 70);
+}
+
+html.dark .addNewTask .taskDescription textarea:focus {
+    outline: 1px solid rgb(163, 163, 163);
+}
+
+html.dark .addNewTask .inputElements .priorityInput select {
+    background-color: var(--Filters-background-dark);
+    color: #fff;
+}
+
+html.dark .addNewTask .inputElements .categoryInput select {
+    background-color: var(--Filters-background-dark);
+    color: #fff;
+}
+
+html.dark .addNewTask .dueDate input {
+    background-color: var(--Filters-background-dark);
+    color: #fff;
+}
+
+html.dark .addNewTask .dueDate input:focus {
+    outline: 1px solid rgb(163, 163, 163);
+}
+
+html.dark .addNewTask .dueDate input::placeholder {
+    color: #fff;
+}
+
+html.dark input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer; 
+}
+
+html.dark .addNewTask .taskDescription label {
+    filter: invert(1);
+}
+
+html.dark .addNewTask .dueDate label {
+    filter: invert(1);
+}
+
+html.dark .addNewTask .inputElements .priorityInput p {
+    filter: invert(1);
+}
+
+html.dark .addNewTask .inputElements .categoryInput p {
+    filter: invert(1);
+}
+
+html.dark .addNewTask .actionBtn button:last-child {
+    color: #171717;
+}
+
+html.dark .addNewTask .actionBtn button:first-child {
+    background-color: var(--Filters-background-dark);
+    border: 1px solid rgb(70, 70, 70);
+    color: #fff;
+}
+
+html.dark .addNewTask .actionBtn button:first-child:hover {
+    background-color: rgb(75, 75, 75);
+}
+
+html.dark .editTask {
+    background-color: #0a0a0a;
+    border: 0.5px solid rgb(74, 74, 74);
+}
+
+html.dark .editTask .taskTitle2 label {
+    filter: invert(1);
+}
+
+html.dark .editTask .taskTitle2 input {
+    color: whitesmoke;
+    border: 1px solid rgb(70, 70, 70);
+}
+
+html.dark .editTask .taskTitle2 input:focus {
+    outline: 1px solid rgb(163, 163, 163);
+}
+
+html.dark .editTask .heading2 p {
+    color: #99a1af;
+}
+
+html.dark .editTask .heading2 h2 {
+    color: #fff;
+}
+
+html.dark .editTask .taskTitle2 input {
+    background-color: var(--Filters-background-dark);
+}
+
+html.dark .editTask .taskDescription2 textarea {
+    background-color: var(--Filters-background-dark);
+    color: whitesmoke;
+    border: 1px solid rgb(70, 70, 70);
+}
+
+html.dark .editTask .taskDescription2 textarea:focus {
+    outline: 1px solid rgb(163, 163, 163);
+}
+
+html.dark .editTask .inputElements2 .priorityInput2 select {
+    background-color: var(--Filters-background-dark);
+    color: #fff;
+}
+
+html.dark .editTask .inputElements2 .categoryInput2 select {
+    background-color: var(--Filters-background-dark);
+    color: #fff;
+}
+
+html.dark .editTask .dueDate2 input {
+    background-color: var(--Filters-background-dark);
+    color: #fff;
+}
+
+html.dark .editTask .dueDate2 input:focus {
+    outline: 1px solid rgb(163, 163, 163);
+}
+
+html.dark .editTask .dueDate2 input::placeholder {
+    color: #fff;
+}
+
+html.dark .editTask .taskDescription2 label {
+    filter: invert(1);
+}
+
+html.dark .editTask .dueDate2 label {
+    filter: invert(1);
+}
+
+html.dark .editTask .inputElements2 .priorityInput2 p {
+    filter: invert(1);
+}
+
+html.dark .editTask .inputElements .categoryInput2 p {
+    filter: invert(1);
+}
+
+html.dark .editTask .actionBtn2 button:last-child {
+    color: #171717;
+}
+
+html.dark .editTask .actionBtn2 button:first-child {
+    background-color: var(--Filters-background-dark);
+    border: 1px solid rgb(70, 70, 70);
+    color: #fff;
+}
+
+html.dark .editTask .actionBtn2 button:first-child:hover {
+    background-color: rgb(75, 75, 75);
+}
+
+html.dark .addNewTask .minimizer {
+    filter: invert(1);
+}
+
+html.dark .editTask .minimizer2 {
+    filter: invert(1);
+}
+
+
+html.dark .taskAdded{
+    filter: invert(1);
+}
+
+html.dark .taskDeleted{
+    filter: invert(1);
+}
+
+html.dark .taskSorting{
+    background-color: #0a0a0a;
+    border: 0.5px solid rgb(74, 74, 74);
+    box-shadow: none;
+}
+
+html.dark .taskSorting ul li.selected{
+    background-color: rgb(34, 34, 34);
+}
+
+html.dark .taskSorting ul li:hover{
+    background-color: rgb(34, 34, 34);
+}
+
+html.dark .taskSorting ul li{
+   color: #fff;
+}
+
+html.dark .taskSorting ul li svg{
+    filter: invert(1);
+}
+
+html.dark .prioritySorting{
+    background-color: #0a0a0a;
+    border: 0.5px solid rgb(74, 74, 74);
+    box-shadow: none;
+}
+
+html.dark .prioritySorting ul li.selected{
+    background-color: rgb(34, 34, 34);
+}
+
+html.dark .prioritySorting ul li:hover{
+    background-color: rgb(34, 34, 34);
+}
+
+html.dark .prioritySorting ul li{
+   color: #fff;
+}
+
+html.dark .prioritySorting ul li svg{
+    filter: invert(1);
+}
+
+html.dark .categorySorting{
+    background-color: #0a0a0a;
+    border: 0.5px solid rgb(74, 74, 74);
+    box-shadow: none;
+}
+
+html.dark .categorySorting ul li.selected{
+    background-color: rgb(34, 34, 34);
+}
+
+html.dark .categorySorting ul li:hover{
+    background-color: rgb(34, 34, 34);
+}
+
+html.dark .categorySorting ul li{
+   color: #fff;
+}
+
+html.dark .categorySorting ul li svg{
+    filter: invert(1);
 }

@@ -1139,7 +1139,6 @@ function createTaskFromData(taskData) {
     }
 }
 
-
 window.addEventListener("DOMContentLoaded", () => {
     loadTasks();
 });
@@ -1164,4 +1163,4 @@ clearBtn.addEventListener("click", () => {
     clearBtn.style.visibility = "";
     clearBtn.style.opacity = "";
     clearBtn.style.transform = "";
-})
+});

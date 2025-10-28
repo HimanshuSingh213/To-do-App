@@ -705,7 +705,6 @@ nav .navRight .addTask svg {
 }
 
 .resultContainer .taskTags ul li:last-child svg:first-child {
-    /* visibility: hidden; */
     display: none;
 }
 
@@ -714,7 +713,6 @@ nav .navRight .addTask svg {
 }
 
 .resultContainer .taskTags.overdue ul li:last-child svg:first-child {
-    /* visibility: visible !important; */
     display: block !important;
 }
 

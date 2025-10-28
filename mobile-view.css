@@ -229,4 +229,18 @@
         right: 20%;
     }
 
+    .resultItemBox .resultContent .header .taskName {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: calc(100vw - 150px);
+    }
+
+    .resultContainer .description {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+    }
+
 }
