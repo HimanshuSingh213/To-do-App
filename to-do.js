@@ -303,70 +303,74 @@ resultContainer.addEventListener('click', (e) => {
     const deleteBtn = e.target.closest('.resultContent .header button:last-child');
 
     if (deleteBtn) {
-        const cardToDelete = deleteBtn.closest('.resultItemBox');
-        const checkBox = cardToDelete.querySelector('.checkBox');
+        const userResponse = confirm("Are you sure you want to delete this task?");
+        if (userResponse) {
 
-        const allCards = Array.from(resultContainer.querySelectorAll('.resultItemBox.show'));
-        const deleteIndex = allCards.indexOf(cardToDelete);
-        const cardsBelow = allCards.slice(deleteIndex + 1);
+            const cardToDelete = deleteBtn.closest('.resultItemBox');
+            const checkBox = cardToDelete.querySelector('.checkBox');
 
-        const oldPositions = cardsBelow.map(card => card.getBoundingClientRect().top);
+            const allCards = Array.from(resultContainer.querySelectorAll('.resultItemBox.show'));
+            const deleteIndex = allCards.indexOf(cardToDelete);
+            const cardsBelow = allCards.slice(deleteIndex + 1);
 
-        cardToDelete.style.transition = "all 0.3s ease";
-        cardToDelete.style.opacity = "0";
-        cardToDelete.style.transform = "translateX(-100px)";
+            const oldPositions = cardsBelow.map(card => card.getBoundingClientRect().top);
 
-        setTimeout(() => {
-            cardToDelete.remove();
-            saveTasks();
-            const newPositions = cardsBelow.map(card => card.getBoundingClientRect().top);
+            cardToDelete.style.transition = "all 0.3s ease";
+            cardToDelete.style.opacity = "0";
+            cardToDelete.style.transform = "translateX(-100px)";
 
-            cardsBelow.forEach((card, index) => {
-                const positionY = oldPositions[index] - newPositions[index];
-
-                if (positionY !== 0) {
-
-                    card.style.transition = 'none';
-                    card.style.transform = `translateY(${positionY}px)`;
-
-                    card.offsetHeight;
-
-                    card.style.transition = 'transform 0.4s ease';
-                    card.style.transform = 'translateY(0)';
-                }
-            });
-        }, 300);
-
-        totalTask.textContent = --sum;
-
-        if (checkBox.classList.contains("done"))
-            completedTask.textContent = --completed;
-        if (!checkBox.classList.contains("done"))
-            activeTask.textContent = --active;
-
-        if (sum === 0) {
-            completionRate.textContent = "0%";
             setTimeout(() => {
-                emptyTask.style.visibility = "visible";
-            }, 200);
-        }
-        else {
-            const percentage = (completed / sum) * 100;
+                cardToDelete.remove();
+                saveTasks();
+                const newPositions = cardsBelow.map(card => card.getBoundingClientRect().top);
 
-            if (percentage === 0 || percentage === 100) {
-                completionRate.textContent = percentage + "%";
-            } else {
-                completionRate.textContent = percentage.toFixed(1) + "%";
+                cardsBelow.forEach((card, index) => {
+                    const positionY = oldPositions[index] - newPositions[index];
+
+                    if (positionY !== 0) {
+
+                        card.style.transition = 'none';
+                        card.style.transform = `translateY(${positionY}px)`;
+
+                        card.offsetHeight;
+
+                        card.style.transition = 'transform 0.4s ease';
+                        card.style.transform = 'translateY(0)';
+                    }
+                });
+            }, 300);
+
+            totalTask.textContent = --sum;
+
+            if (checkBox.classList.contains("done"))
+                completedTask.textContent = --completed;
+            if (!checkBox.classList.contains("done"))
+                activeTask.textContent = --active;
+
+            if (sum === 0) {
+                completionRate.textContent = "0%";
+                setTimeout(() => {
+                    emptyTask.style.visibility = "visible";
+                }, 200);
             }
+            else {
+                const percentage = (completed / sum) * 100;
+
+                if (percentage === 0 || percentage === 100) {
+                    completionRate.textContent = percentage + "%";
+                } else {
+                    completionRate.textContent = percentage.toFixed(1) + "%";
+                }
+            }
+
+            taskDeleted.style.transform = "translateY(0%)";
+            taskDeleted.style.opacity = "1";
+
+            setTimeout(() => {
+                taskDeleted.style.transform = "";
+                taskDeleted.style.opacity = "";
+            }, 2000);
         }
-
-        taskDeleted.style.transform = "translateY(0%)";
-        taskDeleted.style.opacity = "1";
-
-        setTimeout(() => {
-            taskDeleted.style.transform = "";
-            taskDeleted.style.opacity = "";
-        }, 2000);
     }
 });
 
